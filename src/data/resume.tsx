@@ -211,8 +211,8 @@ books: [
     theme: "LeetCode Battles",
     books: [
       {
-        title: "500+ Problems Solved",
-        author: "Algorithms as weapons — dynamic programming, graphs, and advanced problem solving.",
+        title: "800+ Problems Solved",
+        author: "Problem solving — dynamic programming, graphs, and advanced algorithms.",
         number: 1,
       },
       {
