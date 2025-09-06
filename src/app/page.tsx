@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 
 const GitHubContributions = dynamic(() => import("@/components/github-contributions").then(mod => mod.GitHubContributions), { ssr: false });
 const EthicsQuote = dynamic(() => import("@/components/ethics-quote").then(mod => mod.EthicsQuote), { ssr: false });
-// const TechStack = dynamic(() => import("@/components/tech-stack").then(mod => mod.TechStack), { ssr: false });
+const TechStack = dynamic(() => import("@/components/tech-stack").then(mod => mod.TechStack), { ssr: false });
 const TimelineItem = dynamic(() => import("@/components/resume-card").then(mod => mod.TimelineItem), { ssr: false });
 const ContactOrbiting = dynamic(() => import("@/components/contact-orbiting").then(mod => mod.ContactOrbiting), { ssr: false });
 
@@ -171,7 +171,7 @@ export default function Page() {
       </section>
 
       <section id="tech-stack" className="mb-section-lg">
-        {/* <TechStack delay={BLUR_FADE_DELAY * 21} /> */}
+        <TechStack delay={BLUR_FADE_DELAY * 21} />
       </section>
 
       <section id="projects" className="mb-section-lg">

@@ -16,8 +16,7 @@ interface TechItem {
 }
 
 interface TechCategory {
-  name?: string;
-  category?: string;
+  category: string;
   subcategories?: {
     name: string;
     items: TechItem[];
@@ -32,35 +31,36 @@ const techCategories: TechCategory[] = [
       {
         name: "Languages & Environments",
         items: [
-    { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-    { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
-    { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-    { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-    // { name: "Rust", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg" },
-    { name: "Go", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
-    { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-    { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-    { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-    { name: "FastAPI", logo: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" },
-    { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-    { name: "Neo4j", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" },
-    { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-    { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" }
-  ]
-},
-{
-  name: "ML & AI Frameworks",
-  items: [
-    { name: "PyTorch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
-    { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
-    { name: "Scikit-learn", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
-    { name: "Transformers", logo: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
-    { name: "NumPy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
-    { name: "Pandas", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" }
-  ]
-},
-{
-  category: "Web Development",
+          { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+          { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+          { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+          { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+          { name: "Go", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
+          { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+          { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+          { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+          { name: "FastAPI", logo: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" },
+          { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+          { name: "Neo4j", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" },
+          { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
+          { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" }
+        ]
+      },
+    ]
+  },
+  {
+    category: "ML & AI Frameworks",
+    items: [
+      { name: "PyTorch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
+      { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+      { name: "Scikit-learn", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
+      { name: "Transformers", logo: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
+      { name: "NumPy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
+      { name: "Pandas", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" }
+    ]
+  },
+  {
+    category: "Web Development",
     subcategories: [
       {
         name: "Languages & Frontend",
@@ -75,7 +75,6 @@ const techCategories: TechCategory[] = [
           { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
           { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-line.svg" },
           { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
-          // { name: "Three.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/threejs/threejs-original.svg" },
           { name: "shadcn/ui", logo: "https://ui.shadcn.com/favicon.ico" },
           { name: "Framer Motion", logo: "https://cdn.worldvectorlogo.com/logos/framer-motion.svg" },
         ]
@@ -86,7 +85,6 @@ const techCategories: TechCategory[] = [
     category: "Backend & DevOps",
     items: [
       { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" },
-      // { name: "Flask", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg" },
       { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
       { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
       { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
@@ -96,13 +94,14 @@ const techCategories: TechCategory[] = [
 ];
 
 // Flatten all items for the scrolling marquee
-const allTechItems: TechItem[] = techCategories.flatMap(category => 
-  category.subcategories 
+const allTechItems: TechItem[] = techCategories.flatMap(category =>
+  category.subcategories
     ? category.subcategories.flatMap(sub => sub.items)
     : category.items || []
 );
 
-const TechItem = ({ tech, showName = false }: { tech: TechItem; showName?: boolean }) => {
+// I renamed this component to avoid a naming conflict with the main export.
+const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?: boolean }) => {
   return (
     <div className={`flex ${showName ? 'flex-col' : ''} items-center justify-center ${showName ? 'p-4' : 'mx-6'} group`}>
       <div className={`relative ${showName ? 'w-16 h-16' : 'w-12 h-12'} transition-all duration-300 group-hover:scale-110 opacity-70 hover:opacity-100`}>
@@ -169,12 +168,12 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
             {/* Subtle gradient overlays */}
             <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-background via-background/80 to-transparent" />
             <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-background via-background/80 to-transparent" />
-            
+
             {/* Floating logos */}
             <motion.div
               className="flex items-center"
               animate={{
-                x: [0, -50 + "%"],
+                x: [0, "-50%"],
               }}
               transition={{
                 x: {
@@ -186,11 +185,11 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
               }}
             >
               {duplicatedTechStack.map((tech, index) => (
-                <TechItem key={`${tech.name}-${index}`} tech={tech} />
+                <TechItemDisplay key={`${tech.name}-${index}`} tech={tech} />
               ))}
             </motion.div>
           </div>
-          
+
           {/* Icon-only Show All Button */}
           <div className="flex justify-center">
             <Button
@@ -219,7 +218,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                 <h3 className="text-2xl font-bold text-center text-foreground">
                   {category.category}
                 </h3>
-                
+
                 {category.subcategories ? (
                   <div className="space-y-8">
                     {category.subcategories.map((subcategory, subIndex) => (
@@ -235,7 +234,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                               animate={{ opacity: 1, y: 0 }}
                               transition={{ delay: (categoryIndex * 0.1) + (subIndex * 0.05) + (techIndex * 0.03) }}
                             >
-                              <TechItem tech={tech} showName={true} />
+                              <TechItemDisplay tech={tech} showName={true} />
                             </motion.div>
                           ))}
                         </div>
@@ -251,7 +250,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: (categoryIndex * 0.1) + (techIndex * 0.03) }}
                       >
-                        <TechItem tech={tech} showName={true} />
+                        <TechItemDisplay tech={tech} showName={true} />
                       </motion.div>
                     ))}
                   </div>
@@ -259,7 +258,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
               </motion.div>
             ))}
           </div>
-          
+
           {/* Icon-only Back Button */}
           <div className="flex justify-center">
             <Button
@@ -276,4 +275,4 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
       )}
     </motion.div>
   );
-}; 
+};
