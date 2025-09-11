@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
 const GitHubContributions = dynamic(() => import("@/components/github-contributions").then(mod => mod.GitHubContributions), { ssr: false });
@@ -7,7 +8,6 @@ const EthicsQuote = dynamic(() => import("@/components/ethics-quote").then(mod =
 const TechStack = dynamic(() => import("@/components/tech-stack").then(mod => mod.TechStack), { ssr: false });
 const TimelineItem = dynamic(() => import("@/components/resume-card").then(mod => mod.TimelineItem), { ssr: false });
 const ContactOrbiting = dynamic(() => import("@/components/contact-orbiting").then(mod => mod.ContactOrbiting), { ssr: false });
-
 
 const WorldMap = dynamic(() => import("@/components/world-map").then(mod => mod.WorldMap), { ssr: false });
 const BlurFade = dynamic(() => import("@/components/magicui/blur-fade").then(mod => mod.default), { ssr: false });
@@ -120,33 +120,6 @@ export default function Page() {
         </div>
       </section>
 
-      {/*
-      <section id="work" className="mb-section-lg">
-        <div className="space-y-12">
-          <BlurFade delay={BLUR_FADE_DELAY * 17}>
-            <h2 className="text-xl font-bold">Technical Experience</h2>
-          </BlurFade>
-          <div className="space-y-0">
-            {DATA.technicalExperience && DATA.technicalExperience.map((work, id) => (
-              <BlurFade key={work.company} delay={BLUR_FADE_DELAY * 18 + id * 0.05}>
-                <TimelineItem
-                  logoUrl={work.logoUrl}
-                  altText={work.company}
-                  title={work.company}
-                  subtitle={work.title}
-                  href={work.href}
-                  badges={work.badges}
-                  period={`${work.start} - ${work.end ?? "Present"}`}
-                  bullets={work.bullets}
-                  isLast={id === DATA.technicalExperience.length - 1}
-                />
-              </BlurFade>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
       <section id="education" className="mb-section-lg">
         <div className="space-y-12">
           <BlurFade delay={BLUR_FADE_DELAY * 19}>
@@ -160,7 +133,6 @@ export default function Page() {
                 altText={education.school}
                 title={education.school}
                 subtitle={education.degree}
-                  // href={education.href}
                 period={`${education.start} - ${education.end}`}
                   isLast={id === DATA.education.length - 1}
               />
@@ -283,7 +255,17 @@ export default function Page() {
               {leetcode.loading ? (
                 <div className="text-2xl text-gray-400 mt-8">Loading...</div>
               ) : leetcode.error ? (
-                <div className="text-2xl text-red-400 mt-8">Failed to load stats.</div>
+                <div className="flex justify-center mt-8">
+                  <Button size="lg" asChild>
+                    <a
+                      href="https://leetcode.com/u/Charuvarthan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Curious enough to look into my profile?
+                    </a>
+                  </Button>
+                </div>
               ) : (
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-6">
                   <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl flex flex-col items-center min-w-[260px]">
