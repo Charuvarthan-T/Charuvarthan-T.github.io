@@ -1,0 +1,4 @@
+*.pdf binary
+
+# Treat PDFs as binary so Git doesn't try to merge line-by-line.
+# This avoids text-based merge conflicts in files like public/resume.pdf.
