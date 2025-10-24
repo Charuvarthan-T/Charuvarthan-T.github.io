@@ -71,7 +71,7 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       >
         <ul className="list-disc pl-6 text-sm text-muted-foreground dark:text-muted-foreground">
 <li>Winner at GenderX AI Hackathon & recognized at Google Cloud Agentic AI Day (Breakthrough Concept Award).</li>
-<li>Solved 800+ problems on LeetCode and built strong foundations in DSA & system design.</li>
+<li>Solved 1000+ problems on LeetCode and built strong foundations in DSA & system design.</li>
 <li>Published research paper on LSTM-driven battery SoC estimation at IEEE PIICON 2024.</li>
 <li>Built and deployed full-stack applications integrating AI, Firebase, and Next.js.</li>
 <li>Contributed to open-source projects, collaborating with global developer communities.</li>
