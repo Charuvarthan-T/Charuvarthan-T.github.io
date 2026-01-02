@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://www.codechef.com/users/charuvarthan" target="_blank">
-    <img src="https://raw.githubusercontent.com/Charuvarthan-T/Charuvarthan-T/main/src/codechef-stars.svg" width="520"/>
+    <img src="https://raw.githubusercontent.com/Charuvarthan-T/Charuvarthan-T.github.io/main/codechef-stars.svg" width="520"/>
   </a>
 </p>
 
