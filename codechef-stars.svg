@@ -1,35 +1,45 @@
-<svg width="420" height="80" viewBox="0 0 420 80" xmlns="http://www.w3.org/2000/svg">
+<svg width="520" height="90" viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg">
   <style>
     .star {
-      fill: #d4af37;
-      animation: pulse 2.6s ease-in-out infinite;
+      fill: #FF7A00;
+      animation: pulse 2.4s ease-in-out infinite;
       transform-origin: center;
+      filter: drop-shadow(0 0 6px rgba(255,122,0,0.7));
     }
+    .s1 { animation-delay: 0s; }
     .s2 { animation-delay: 0.2s; }
     .s3 { animation-delay: 0.4s; }
     .s4 { animation-delay: 0.6s; }
     .s5 { animation-delay: 0.8s; }
+    .s6 { animation-delay: 1s; }
 
     @keyframes pulse {
       0%, 100% {
-        opacity: 0.55;
+        opacity: 0.6;
         transform: scale(1);
       }
       50% {
         opacity: 1;
-        transform: scale(1.08);
+        transform: scale(1.12);
       }
     }
 
     text {
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      font-size: 18px;
-      fill: #555;
+      font-size: 20px;
+      fill: #ff7a00;
+      font-weight: 600;
     }
   </style>
 
   <text x="20" y="30">CodeChef</text>
 
-  <!-- Stars -->
-  <polygon class="star s1" points="40,52 45,65 59,65 48,73 52,87 40,79 28,87 32,73 21,65 35,65"/>
-  <polygon class="star s2" points="80,52 85,65 99,65
+  <!-- 6 Stars -->
+  <polygon class="star s1" points="80,50 86,64 102,64 90,73 95,88 80,79 65,88 70,73 58,64 74,64"/>
+  <polygon class="star s2" points="140,50 146,64 162,64 150,73 155,88 140,79 125,88 130,73 118,64 134,64"/>
+  <polygon class="star s3" points="200,50 206,64 222,64 210,73 215,88 200,79 185,88 190,73 178,64 194,64"/>
+  <polygon class="star s4" points="260,50 266,64 282,64 270,73 275,88 260,79 245,88 250,73 238,64 254,64"/>
+  <polygon class="star s5" points="320,50 326,64 342,64 330,73 335,88 320,79 305,88 310,73 298,64 314,64"/>
+  <polygon class="star s6" points="380,50 386,64 402,64 390,73 395,88 380,79 365,88 370,73 358,64 374,64"/>
+
+</svg>
