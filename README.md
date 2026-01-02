@@ -1,6 +1,10 @@
 <p align="center">
   <a href="https://www.codechef.com/users/charuvarthan" target="_blank">
-    <img src="https://github.com/Charuvarthan-T/Charuvarthan-T.github.io/blob/main/codechef-stars.svg" alt="CodeChef 5 Star Rating"/>
+    <img src="https://raw.githubusercontent.com/Charuvarthan-T/Charuvarthan-T/main/src/codechef-stars.svg" width="520"/>
   </a>
 </p>
 
+<p align="center">
+  <b>CodeChef 6★ Coder</b><br>
+  <sub>Global Rank 286 · Top 0.13% Worldwide</sub>
+</p>
