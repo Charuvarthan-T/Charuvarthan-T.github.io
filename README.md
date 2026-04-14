@@ -1,11 +1,11 @@
-<p align="center">
-  <a href="https://www.codechef.com/users/charuvarthan" target="_blank">
-    <img src="https://raw.githubusercontent.com/Charuvarthan-T/Charuvarthan-T.github.io/main/codechef-stars.svg" width="520"/>
-  </a>
-</p>
+<div align="center" style="background-color:#000000; padding: 60px 20px;">
 
-<p align="center">
-  <b>CodeChef 6★ Coder</b><br>
-  <sub>Global Rank 286 · Top 0.13% active coders Worldwide</sub>
-</p>
+  <h1 style="color:#ffffff; font-size:32px; font-weight:500; letter-spacing:1px;">
+    Escape while it’s still a choice,
+  </h1>
 
+  <h2 style="color:#aaaaaa; font-size:22px; font-weight:300;">
+    before it becomes your life.
+  </h2>
+
+</div>
