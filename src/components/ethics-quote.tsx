@@ -2,8 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
-import { Safari } from "@/components/magicui/safari";
 
 interface EthicsQuoteProps {
   delay?: number;
@@ -21,20 +19,6 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       transition: {
         duration: 0.6,
         delay: delay,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
-
-  const safariVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        delay: delay + 0.4,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },

@@ -1,1 +1,0 @@
-Blog feature removed. This file is a marker to indicate blog pages were deleted.

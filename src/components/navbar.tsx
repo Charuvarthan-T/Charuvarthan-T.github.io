@@ -12,9 +12,6 @@ import {
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Fish } from "lucide-react";
-import { motion } from "framer-motion";
-import { useState } from "react";
 
 export default function Navbar() {
 
