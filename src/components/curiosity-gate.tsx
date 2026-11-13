@@ -50,14 +50,6 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const legal = selected ? game.moves({ square: selected, verbose: true }).map(move => move.to) : [];
 
   useEffect(() => {
-    if (!challengeVisible || reduce) return;
-    // Warm the photographic asset while the visitor reads/plays, rather than
-    // fetching it at the moment the board king is isolated.
-    const king = new window.Image();
-    king.src = "/chess/king-sculpture.png";
-  }, [challengeVisible, reduce]);
-
-  useEffect(() => {
     if (state !== "puzzle" || leaving) return;
     const timer = setTimeout(() => setChallengeVisible(true), reduce ? 0 : INTRO_DURATION_MS);
     return () => clearTimeout(timer);
