@@ -37,9 +37,19 @@ the introduction.
 
 ## Design and assets
 
-The gate uses the existing Inter font, semantic color tokens, radius, Button,
-Framer Motion, and light/dark theme. Reduced motion removes the transitions.
-The desktop composition becomes one column on mobile, with a sticky skip header.
+The gate uses locally bundled Absans Regular, existing semantic color tokens,
+radius, Button, Framer Motion, and light/dark theme. The rest of the portfolio
+retains Inter. Absans is loaded through next/font/local with font-display swap;
+its unmodified WOFF2 and SIL Open Font License are in public/fonts/absans.
+
+Initially only the full-width introduction is mounted. The title and three
+supporting blocks reveal at 0, 0.95, 1.9, and 2.85 seconds. After a reading beat,
+at 4.8 seconds the composition moves left and the board enters from the right.
+The board is absent from the DOM and keyboard order before this transition.
+Reduced motion shows the copy without animation, then enables the board on the
+next timer tick. The 15-second idle clock runs independently of this sequence.
+The desktop supporting text is arranged horizontally; mobile uses a readable
+single column with a sticky skip header. No visible SAN move notation is shown.
 The only new package is `chess.js` 1.4.0. Chessnut SVG pieces by Alexis Luengas
 are hosted locally under Apache 2.0; attribution and license accompany the files
 in `public/chess`. Only the ten piece types present in the puzzle are included.
