@@ -1,4 +1,5 @@
 import Navbar from "@/components/navbar";
+import CuriosityEntry from "@/components/curiosity-entry";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -68,6 +69,7 @@ export default function RootLayout({
             {children}
             </div>
             <Navbar />
+            <CuriosityEntry />
           </TooltipProvider>
         </ThemeProvider>
       </body>

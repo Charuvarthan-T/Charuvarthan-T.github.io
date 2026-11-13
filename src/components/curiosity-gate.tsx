@@ -1,0 +1,236 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { AnimatePresence, motion, useMotionValue, useReducedMotion } from "framer-motion";
+import { Chess, type Square } from "chess.js";
+import Image from "next/image";
+import { ArrowUpRight, ArrowRight, RotateCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { PUZZLE_FEN, tryPuzzleMove } from "@/lib/curiosity-puzzle";
+import styles from "./curiosity-gate.module.css";
+
+const IDLE_MS = 15_000;
+const FILES = "abcdefgh";
+const PIECES = { k: "king", q: "queen", r: "rook", b: "bishop", n: "knight", p: "pawn" };
+const squares = Array.from({ length: 64 }, (_, index) => `${FILES[index % 8]}${8 - Math.floor(index / 8)}` as Square);
+
+export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const board = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const [state, setState] = useState<"puzzle" | "solved" | "idle">("puzzle");
+  const [fen, setFen] = useState(PUZZLE_FEN);
+  const [selected, setSelected] = useState<Square | null>(null);
+  const [focused, setFocused] = useState<Square>("d1");
+  const [message, setMessage] = useState("One move. Make it count.");
+  const [leaving, setLeaving] = useState(false);
+  const [dragging, setDragging] = useState<Square | null>(null);
+  const [attempt, setAttempt] = useState(0);
+  const lastActivity = useRef(Date.now());
+  const idleTimer = useRef<ReturnType<typeof setTimeout>>();
+  const exitTimer = useRef<ReturnType<typeof setTimeout>>();
+  const drag = useRef<{ square: Square; x: number; y: number; moved: boolean } | null>(null);
+  const suppressClick = useRef(false);
+  const dragX = useMotionValue(0);
+  const dragY = useMotionValue(0);
+  const game = new Chess(fen);
+  const legal = selected ? game.moves({ square: selected, verbose: true }).map(move => move.to) : [];
+
+  const enter = useCallback(() => {
+    if (exitTimer.current) return;
+    setLeaving(true);
+    clearTimeout(idleTimer.current);
+    exitTimer.current = setTimeout(() => {
+      dialog.current?.close();
+      onEnter();
+    }, reduce ? 0 : 350);
+  }, [onEnter, reduce]);
+
+  useEffect(() => {
+    const element = dialog.current;
+    if (!element || typeof element.showModal !== "function") { onEnter(); return; }
+    const previousOverflow = document.body.style.overflow;
+    try { element.showModal(); } catch { onEnter(); return; }
+    element.querySelector<HTMLButtonElement>("[data-skip]")?.focus({ preventScroll: true });
+    document.body.style.overflow = "hidden";
+    return () => {
+      element.close();
+      document.body.style.overflow = previousOverflow;
+      clearTimeout(exitTimer.current);
+    };
+  }, [onEnter]);
+
+  const activity = useCallback(() => {
+    lastActivity.current = Date.now();
+    clearTimeout(idleTimer.current);
+    idleTimer.current = setTimeout(() => setState(current => current === "puzzle" ? "idle" : current), IDLE_MS);
+  }, []);
+
+  useEffect(() => {
+    if (state !== "puzzle" || leaving) return;
+    activity();
+    const resume = () => {
+      if (Date.now() - lastActivity.current >= IDLE_MS) setState("idle");
+    };
+    document.addEventListener("visibilitychange", resume);
+    window.addEventListener("focus", resume);
+    return () => {
+      clearTimeout(idleTimer.current);
+      document.removeEventListener("visibilitychange", resume);
+      window.removeEventListener("focus", resume);
+    };
+  }, [state, activity, leaving]);
+
+  function move(from: Square, to: Square) {
+    if (state !== "puzzle" || leaving) return;
+    const result = tryPuzzleMove(fen, from, to);
+    setSelected(null);
+    if (!result.legal) {
+      setMessage("Even curiosity has rules. Try a legal move.");
+    } else if (!result.solved) {
+      // Keep the original position after a legal but incorrect attempt.
+      setMessage("Not quite. The king remains employed.");
+      setAttempt(value => value + 1);
+    } else {
+      setFen(result.fen);
+      setMessage(`${result.move?.san}. The king has left the building.`);
+      setState("solved");
+      clearTimeout(idleTimer.current);
+    }
+  }
+
+  function choose(square: Square) {
+    if (suppressClick.current) { suppressClick.current = false; return; }
+    if (state !== "puzzle") return;
+    const piece = game.get(square);
+    if (piece?.color === "w") {
+      const next = selected === square ? null : square;
+      setSelected(next);
+      setMessage(next ? `${PIECES[piece.type][0].toUpperCase() + PIECES[piece.type].slice(1)} on ${square}. Choose a destination.` : "One move. Make it count.");
+    } else if (selected) move(selected, square);
+  }
+
+  function keyDown(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const directions: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -8, ArrowDown: 8, Home: -(index % 8), End: 7 - index % 8 };
+    if (!(event.key in directions)) return;
+    event.preventDefault();
+    const next = index + directions[event.key];
+    if (next < 0 || next > 63) return;
+    if ((event.key === "ArrowLeft" || event.key === "ArrowRight") && Math.floor(next / 8) !== Math.floor(index / 8)) return;
+    setFocused(squares[next]);
+    board.current?.querySelector<HTMLButtonElement>(`[data-square="${squares[next]}"]`)?.focus();
+  }
+
+  function pointerDown(event: PointerEvent<HTMLButtonElement>, square: Square) {
+    if (event.button !== 0 || state !== "puzzle" || game.get(square)?.color !== "w") return;
+    drag.current = { square, x: event.clientX, y: event.clientY, moved: false };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function pointerMove(event: PointerEvent<HTMLButtonElement>) {
+    const start = drag.current;
+    if (!start) return;
+    if (!start.moved && Math.hypot(event.clientX - start.x, event.clientY - start.y) < 7) return;
+    start.moved = true;
+    setDragging(start.square);
+    const rect = board.current?.getBoundingClientRect();
+    if (rect) { dragX.set(event.clientX - rect.left); dragY.set(event.clientY - rect.top); }
+  }
+
+  function pointerUp(event: PointerEvent<HTMLButtonElement>) {
+    const start = drag.current;
+    drag.current = null;
+    setDragging(null);
+    if (!start?.moved) return;
+    suppressClick.current = true;
+    const rect = board.current?.getBoundingClientRect();
+    if (!rect || event.clientX < rect.left || event.clientX >= rect.right || event.clientY < rect.top || event.clientY >= rect.bottom) return;
+    const column = Math.floor((event.clientX - rect.left) / rect.width * 8);
+    const row = Math.floor((event.clientY - rect.top) / rect.height * 8);
+    move(start.square, squares[row * 8 + column]);
+  }
+
+  const reveal = { initial: reduce ? false as const : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: reduce ? 0 : -8 }, transition: { duration: reduce ? 0 : 0.45 } };
+
+  return (
+    <dialog ref={dialog} className={styles.dialog} aria-labelledby="curiosity-title" aria-describedby="curiosity-instructions" onCancel={event => { event.preventDefault(); enter(); }} onPointerDownCapture={state === "puzzle" ? activity : undefined} onKeyDownCapture={state === "puzzle" ? activity : undefined}>
+      <motion.div className={styles.shell} initial={{ opacity: 0 }} animate={{ opacity: leaving ? 0 : 1 }} transition={{ duration: reduce ? 0 : 0.35 }}>
+        <header className={styles.header}>
+          <a className={styles.signature} href="#hero" onClick={event => { event.preventDefault(); enter(); }} aria-label="Enter Charuvarthan's portfolio">Charuvarthan<span aria-hidden="true">.</span></a>
+          <button data-skip className={styles.skip} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
+        </header>
+
+        <div className={styles.composition}>
+          <div className={styles.copy}>
+            <AnimatePresence mode="wait" initial={false}>
+              {state === "puzzle" ? (
+                <motion.div key="intro" {...reveal}>
+                  <h1 id="curiosity-title" className={styles.title}>You seem unusually interested in a stranger<span className={styles.period}>.</span></h1>
+                  <motion.div {...reveal} transition={{ delay: reduce ? 0 : 0.2, duration: 0.45 }} className={styles.body}>
+                    <p>There are 8 billion people on this planet.<br />And you chose to inspect this one?</p>
+                    <p className={styles.interesting}>Interesting.</p>
+                    <p>If you&apos;re really that curious,<br /><span className={styles.emphasis}>earn your way in.</span></p>
+                  </motion.div>
+                </motion.div>
+              ) : state === "solved" ? (
+                <motion.div key="solved" {...reveal} onAnimationComplete={() => dialog.current?.querySelector<HTMLButtonElement>("[data-enter]")?.focus()}>
+                  <p className={styles.eyebrow}>Curiosity, confirmed.</p>
+                  <h1 id="curiosity-title" className={`${styles.title} ${styles.resultTitle}`}>CHECKMATE.</h1>
+                  <div className={styles.body}>
+                    <p className={styles.emphasis}>Okay. You&apos;ve demonstrated a questionable amount of curiosity.</p>
+                    <p>You spent your time solving a chess puzzle just to look at a developer&apos;s portfolio.</p>
+                    <p className={styles.emphasis}>I respect that.</p>
+                    <p>There&apos;s probably nothing that interesting inside, though.</p>
+                  </div>
+                  <Button data-enter size="lg" className={styles.enter} onClick={enter}>ENTER ANYWAY <ArrowRight aria-hidden="true" /></Button>
+                </motion.div>
+              ) : (
+                <motion.div key="idle" {...reveal} onAnimationComplete={() => dialog.current?.querySelector<HTMLButtonElement>("[data-enter]")?.focus()}>
+                  <p className={styles.eyebrow}>Patience is a strategy.</p>
+                  <h1 id="curiosity-title" className={styles.title}>15 seconds.</h1>
+                  <div className={styles.body}>
+                    <p>You just spent 15 seconds of your life waiting to see a website.</p>
+                    <p>You could&apos;ve done something productive.</p>
+                    <p>But whatever.<br /><span className={styles.emphasis}>Curiosity wins.</span></p>
+                  </div>
+                  <Button data-enter size="lg" className={styles.enter} onClick={enter}>FINE, SHOW ME <ArrowRight aria-hidden="true" /></Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <motion.div className={styles.puzzle} {...reveal} transition={{ delay: reduce ? 0 : 0.15, duration: 0.6 }}>
+            <div className={styles.boardHeading}>
+              <div><p className={styles.eyebrow}>THE CURIOSITY GAMBIT</p><h2>{state === "solved" ? "A very good move." : "White to move. Mate in 1."}</h2></div>
+              <span className={styles.mateMark} aria-hidden="true">{state === "solved" ? "#" : "?"}</span>
+            </div>
+            <div className={`${styles.boardFrame} ${state === "idle" ? styles.idleBoard : ""}`}>
+              <div className={styles.board} ref={board} role="group" aria-label="Chessboard. White to move and checkmate in one move." aria-describedby="curiosity-instructions">
+                {squares.map((square, index) => {
+                  const piece = game.get(square);
+                  const isSelected = selected === square;
+                  return (
+                    <button key={square} type="button" data-square={square} className={`${styles.square} ${(Math.floor(index / 8) + index % 8) % 2 ? styles.darkSquare : styles.lightSquare} ${isSelected ? styles.selected : ""}`} tabIndex={focused === square ? 0 : -1} aria-label={`${square}${piece ? `, ${piece.color === "w" ? "white" : "black"} ${PIECES[piece.type]}` : ", empty"}${legal.includes(square) ? ", legal destination" : ""}`} aria-pressed={isSelected} aria-disabled={state !== "puzzle"} onFocus={() => setFocused(square)} onClick={() => choose(square)} onKeyDown={event => keyDown(event, index)} onPointerDown={event => pointerDown(event, square)} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { drag.current = null; setDragging(null); }}>
+                      {index % 8 === 0 && <span className={styles.rank} aria-hidden="true">{square[1]}</span>}
+                      {index >= 56 && <span className={styles.file} aria-hidden="true">{square[0]}</span>}
+                      {piece && <motion.span data-color={piece.color} className={`${styles.piece} ${dragging === square ? styles.dragSource : ""}`} layoutId={`piece-${piece.color}-${piece.type}-${state === "solved" && square === "d8" ? "d1" : square}`} transition={{ duration: reduce ? 0 : 0.3 }}><Image src={`/chess/${piece.color}${piece.type.toUpperCase()}.svg`} alt="" width={80} height={80} draggable={false} unoptimized /></motion.span>}
+                      {legal.includes(square) && <span className={piece ? styles.capture : styles.destination} aria-hidden="true" />}
+                    </button>
+                  );
+                })}
+                {dragging && <motion.div className={styles.dragPiece} style={{ x: dragX, y: dragY }} aria-hidden="true"><Image src={`/chess/w${game.get(dragging)!.type.toUpperCase()}.svg`} alt="" width={80} height={80} unoptimized /></motion.div>}
+              </div>
+            </div>
+            <div className={styles.boardFooter}>
+              <p className={styles.feedback} role="status" aria-live="polite" aria-atomic="true" key={`${state}-${attempt}`}>{state === "idle" ? "Access unlocked. Your move is optional now." : message}</p>
+              {selected && state === "puzzle" && <button className={styles.deselect} onClick={() => { setSelected(null); setMessage("One move. Make it count."); }} aria-label="Clear selected piece"><RotateCcw size={14} aria-hidden="true" /></button>}
+            </div>
+            <p id="curiosity-instructions" className={styles.instructions}>Click or drag to move. Keyboard: arrows to explore, Enter to select.</p>
+          </motion.div>
+        </div>
+
+        <footer className={styles.footer}><span>A small detour. An entirely optional one.</span><span>One move between strangers.</span></footer>
+      </motion.div>
+    </dialog>
+  );
+}
