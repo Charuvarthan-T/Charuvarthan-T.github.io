@@ -22,11 +22,13 @@ the introduction.
 - Click/tap or pointer drag moves pieces. Arrow keys explore squares; Enter or
   Space selects a piece and destination. The board has one tab stop.
 - Skip, the name link, and Escape always enter immediately, with a short fade.
-- After 15 seconds without pointer-down or keyboard activity, the idle message
-  replaces the introduction and presents an entry button. Mouse movement alone
+- After the board is revealed, 5 seconds without pointer-down or keyboard activity
+  opens the same final screen as a verified checkmate. Mouse movement alone
   does not restart the timer. Returning from a background tab also checks wall
   clock time, so throttled timers cannot strand the visitor.
-- Successful completion is terminal: an idle timer cannot replace checkmate.
+- The final screen is terminal and identical for both outcomes, including the
+  disabled starting board, sequential playful copy, and LET ME IN action. The
+  skip button has a continuous, restrained glow while this screen is displayed.
 - Entry is remembered in sessionStorage for this browser tab. Storage is optional;
   access still works when it is blocked. Direct anchor links bypass the gate.
 - The gate is loaded after hydration, only on the home page for a new session.
@@ -47,7 +49,8 @@ supporting blocks reveal at 0, 0.95, 1.9, and 2.85 seconds. After a reading beat
 at 4.8 seconds the composition moves left and the board enters from the right.
 The board is absent from the DOM and keyboard order before this transition.
 Reduced motion shows the copy without animation, then enables the board on the
-next timer tick. The 15-second idle clock runs independently of this sequence.
+next timer tick. The 5-second idle clock starts when the board is revealed,
+so the introduction does not consume the visitor's time to play.
 The desktop supporting text is arranged horizontally; mobile uses a readable
 single column with a sticky skip header. No visible SAN move notation is shown.
 The only new package is `chess.js` 1.4.0. Chessnut SVG pieces by Alexis Luengas

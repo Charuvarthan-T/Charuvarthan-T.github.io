@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { PUZZLE_FEN, tryPuzzleMove } from "@/lib/curiosity-puzzle";
 import styles from "./curiosity-gate.module.css";
 
-const IDLE_MS = 15_000;
+const IDLE_MS = 5_000;
 // Four staggered reveals, followed by a reading beat before the board enters.
 const INTRO_DURATION_MS = 4_800;
 const absans = localFont({
@@ -28,7 +28,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const board = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const [state, setState] = useState<"puzzle" | "solved" | "idle">("puzzle");
+  const [state, setState] = useState<"puzzle" | "final">("puzzle");
   const [challengeVisible, setChallengeVisible] = useState(false);
   const [fen, setFen] = useState(PUZZLE_FEN);
   const [selected, setSelected] = useState<Square | null>(null);
@@ -44,7 +44,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const suppressClick = useRef(false);
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
-  const game = new Chess(fen);
+  const game = new Chess(state === "final" ? PUZZLE_FEN : fen);
   const legal = selected ? game.moves({ square: selected, verbose: true }).map(move => move.to) : [];
 
   useEffect(() => {
@@ -77,17 +77,26 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
     };
   }, [onEnter]);
 
+  const finish = useCallback(() => {
+    setState("final");
+    setSelected(null);
+    setFocused("d1");
+    setDragging(null);
+    drag.current = null;
+    clearTimeout(idleTimer.current);
+  }, []);
+
   const activity = useCallback(() => {
     lastActivity.current = Date.now();
     clearTimeout(idleTimer.current);
-    idleTimer.current = setTimeout(() => setState(current => current === "puzzle" ? "idle" : current), IDLE_MS);
-  }, []);
+    idleTimer.current = setTimeout(finish, IDLE_MS);
+  }, [finish]);
 
   useEffect(() => {
-    if (state !== "puzzle" || leaving) return;
+    if (state !== "puzzle" || !challengeVisible || leaving) return;
     activity();
     const resume = () => {
-      if (Date.now() - lastActivity.current >= IDLE_MS) setState("idle");
+      if (Date.now() - lastActivity.current >= IDLE_MS) finish();
     };
     document.addEventListener("visibilitychange", resume);
     window.addEventListener("focus", resume);
@@ -96,7 +105,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
       document.removeEventListener("visibilitychange", resume);
       window.removeEventListener("focus", resume);
     };
-  }, [state, activity, leaving]);
+  }, [state, challengeVisible, activity, leaving, finish]);
 
   function move(from: Square, to: Square) {
     if (state !== "puzzle" || leaving) return;
@@ -111,8 +120,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
     } else {
       setFen(result.fen);
       setMessage("The king has left the building.");
-      setState("solved");
-      clearTimeout(idleTimer.current);
+      finish();
     }
   }
 
@@ -182,11 +190,11 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const compositionTransition = { duration: reduce ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] };
 
   return (
-    <dialog ref={dialog} className={`${styles.dialog} ${absans.className}`} aria-labelledby="curiosity-title" aria-describedby={challengeVisible ? "curiosity-instructions" : undefined} onCancel={event => { event.preventDefault(); enter(); }} onPointerDownCapture={state === "puzzle" ? activity : undefined} onKeyDownCapture={state === "puzzle" ? activity : undefined}>
+    <dialog ref={dialog} className={`${styles.dialog} ${absans.className}`} aria-labelledby="curiosity-title" aria-describedby={challengeVisible ? "curiosity-instructions" : undefined} onCancel={event => { event.preventDefault(); enter(); }} onPointerDownCapture={state === "puzzle" && challengeVisible ? activity : undefined} onKeyDownCapture={state === "puzzle" && challengeVisible ? activity : undefined}>
       <motion.div className={styles.shell} initial={{ opacity: 0 }} animate={{ opacity: leaving ? 0 : 1 }} transition={{ duration: reduce ? 0 : 0.35 }}>
         <header className={styles.header}>
           <a className={styles.signature} href="#hero" onClick={event => { event.preventDefault(); enter(); }} aria-label="Enter Charuvarthan's portfolio">Charuvarthan<span aria-hidden="true">.</span></a>
-          <button data-skip className={styles.skip} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
+          <button data-skip className={`${styles.skip} ${state === "final" ? styles.skipGlow : ""}`} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
         </header>
 
         <div className={`${styles.composition} ${challengeVisible ? styles.challengeLayout : styles.introLayout}`} data-phase={challengeVisible ? "challenge" : "intro"}>
@@ -194,35 +202,28 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
             <AnimatePresence mode="wait">
               {state === "puzzle" ? (
                 <motion.div key="intro" exit={{ opacity: 0, y: reduce ? 0 : -12 }} transition={{ duration: reduce ? 0 : 0.4 }}>
-                  <motion.h1 layout="position" {...sequence(0)} id="curiosity-title" className={styles.title}>You seem unusually interested in a stranger.</motion.h1>
+                  <motion.h1 layout="position" {...sequence(0)} id="curiosity-title" className={styles.title}>The human urge to know.</motion.h1>
                   <div className={`${styles.body} ${styles.introSupporting}`}>
-                    <motion.p layout="position" {...sequence(0.95)}>There are 8 billion people on this planet.<br />And you chose to inspect this one?</motion.p>
-                    <motion.p layout="position" {...sequence(1.9)} className={styles.interesting}>Interesting.</motion.p>
-                    <motion.p layout="position" {...sequence(2.85)}>If you&apos;re really that curious,<br />earn your way in.</motion.p>
+                    <motion.p layout="position" {...sequence(0.95)}>Came for the design?</motion.p>
+                    <motion.p layout="position" {...sequence(1.9)} className={styles.interesting}>The work?</motion.p>
+                    <motion.p layout="position" {...sequence(2.85)}>Or to know about me?</motion.p>
                   </div>
-                </motion.div>
-              ) : state === "solved" ? (
-                <motion.div key="solved" {...reveal} onAnimationComplete={() => dialog.current?.querySelector<HTMLButtonElement>("[data-enter]")?.focus()}>
-                  <p className={styles.eyebrow}>Curiosity, confirmed.</p>
-                  <h1 id="curiosity-title" className={`${styles.title} ${styles.resultTitle}`}>CHECKMATE.</h1>
-                  <div className={styles.body}>
-                    <p className={styles.emphasis}>Okay. You&apos;ve demonstrated a questionable amount of curiosity.</p>
-                    <p>You spent your time solving a chess puzzle just to look at a developer&apos;s portfolio.</p>
-                    <p className={styles.emphasis}>I respect that.</p>
-                    <p>There&apos;s probably nothing that interesting inside, though.</p>
-                  </div>
-                  <Button data-enter size="lg" className={styles.enter} onClick={enter}>ENTER ANYWAY <ArrowRight aria-hidden="true" /></Button>
                 </motion.div>
               ) : (
-                <motion.div key="idle" {...reveal} onAnimationComplete={() => dialog.current?.querySelector<HTMLButtonElement>("[data-enter]")?.focus()}>
-                  <p className={styles.eyebrow}>Patience is a strategy.</p>
-                  <h1 id="curiosity-title" className={styles.title}>15 seconds.</h1>
+                <motion.div key="final" data-final-screen {...reveal} onAnimationComplete={() => dialog.current?.querySelector<HTMLButtonElement>("[data-enter]")?.focus()}>
+                  <motion.h1 {...sequence(0)} id="curiosity-title" className={styles.title}>You know what?</motion.h1>
                   <div className={styles.body}>
-                    <p>You just spent 15 seconds of your life waiting to see a website.</p>
-                    <p>You could&apos;ve done something productive.</p>
-                    <p>But whatever.<br /><span className={styles.emphasis}>Curiosity wins.</span></p>
+                    {[
+                      "Whether you solved the puzzle…",
+                      "Or just waited it out…",
+                      "You still ended up here.",
+                      "You just wasted 5–10 seconds of your life.",
+                      "That was entirely optional.",
+                      "The skip button was right there.",
+                      "Well. Since you've committed…",
+                    ].map((line, index) => <motion.p key={line} {...sequence((index + 1) * 0.95)}>{line}</motion.p>)}
                   </div>
-                  <Button data-enter size="lg" className={styles.enter} onClick={enter}>FINE, SHOW ME <ArrowRight aria-hidden="true" /></Button>
+                  <Button data-enter size="lg" className={styles.enter} onClick={enter}>LET ME IN <ArrowRight aria-hidden="true" /></Button>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -230,9 +231,9 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
 
           {challengeVisible && <motion.div data-chess-challenge className={styles.puzzle} initial={reduce ? false : { opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0 }} transition={{ ...compositionTransition, delay: reduce ? 0 : 0.1 }}>
             <div className={styles.boardHeading}>
-              <div><p className={styles.eyebrow}>THE CURIOSITY GAMBIT</p><h2>{state === "solved" ? "A very good move." : "White to move. Mate in 1."}</h2></div>
+              <div><p className={styles.eyebrow}>THE CURIOSITY GAMBIT</p><h2>{state === "final" ? "Curiosity wins." : "White to move. Mate in 1."}</h2></div>
             </div>
-            <div className={`${styles.boardFrame} ${state === "idle" ? styles.idleBoard : ""}`}>
+            <div className={`${styles.boardFrame} ${state === "final" ? styles.idleBoard : ""}`}>
               <div className={styles.board} ref={board} role="group" aria-label="Chessboard. White to move and checkmate in one move." aria-describedby="curiosity-instructions">
                 {squares.map((square, index) => {
                   const piece = game.get(square);
@@ -241,7 +242,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
                     <button key={square} type="button" data-square={square} className={`${styles.square} ${(Math.floor(index / 8) + index % 8) % 2 ? styles.darkSquare : styles.lightSquare} ${isSelected ? styles.selected : ""}`} tabIndex={focused === square ? 0 : -1} aria-label={`${square}${piece ? `, ${piece.color === "w" ? "white" : "black"} ${PIECES[piece.type]}` : ", empty"}${legal.includes(square) ? ", legal destination" : ""}`} aria-pressed={isSelected} aria-disabled={state !== "puzzle"} onFocus={() => setFocused(square)} onClick={() => choose(square)} onKeyDown={event => keyDown(event, index)} onPointerDown={event => pointerDown(event, square)} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={() => { drag.current = null; setDragging(null); }}>
                       {index % 8 === 0 && <span className={styles.rank} aria-hidden="true">{square[1]}</span>}
                       {index >= 56 && <span className={styles.file} aria-hidden="true">{square[0]}</span>}
-                      {piece && <motion.span data-color={piece.color} className={`${styles.piece} ${dragging === square ? styles.dragSource : ""}`} layoutId={`piece-${piece.color}-${piece.type}-${state === "solved" && square === "d8" ? "d1" : square}`} transition={{ duration: reduce ? 0 : 0.3 }}><Image src={`/chess/${piece.color}${piece.type.toUpperCase()}.svg`} alt="" width={80} height={80} draggable={false} unoptimized /></motion.span>}
+                      {piece && <motion.span data-color={piece.color} className={`${styles.piece} ${dragging === square ? styles.dragSource : ""}`} layoutId={`piece-${piece.color}-${piece.type}-${square}`} transition={{ duration: reduce ? 0 : 0.3 }}><Image src={`/chess/${piece.color}${piece.type.toUpperCase()}.svg`} alt="" width={80} height={80} draggable={false} unoptimized /></motion.span>}
                       {legal.includes(square) && <span className={piece ? styles.capture : styles.destination} aria-hidden="true" />}
                     </button>
                   );
@@ -250,7 +251,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
               </div>
             </div>
             <div className={styles.boardFooter}>
-              <p className={styles.feedback} role="status" aria-live="polite" aria-atomic="true" key={`${state}-${attempt}`}>{state === "idle" ? "Access unlocked. Your move is optional now." : message}</p>
+              <p className={styles.feedback} role="status" aria-live="polite" aria-atomic="true" key={`${state}-${attempt}`}>{state === "final" ? "Access unlocked. The choice was always yours." : message}</p>
               {selected && state === "puzzle" && <button className={styles.deselect} onClick={() => { setSelected(null); setMessage("Find the forced mate."); }} aria-label="Clear selected piece"><RotateCcw size={14} aria-hidden="true" /></button>}
             </div>
             <p id="curiosity-instructions" className={styles.instructions}>Click or drag to move. Keyboard: arrows to explore, Enter to select.</p>
