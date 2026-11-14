@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
+import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type PointerEvent } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import { Chess, type Square } from "chess.js";
 import Image from "next/image";
@@ -23,6 +23,16 @@ const absans = localFont({
 const FILES = "abcdefgh";
 const PIECES = { k: "king", q: "queen", r: "rook", b: "bishop", n: "knight", p: "pawn" };
 const squares = Array.from({ length: 64 }, (_, index) => `${FILES[index % 8]}${8 - Math.floor(index / 8)}` as Square);
+
+function GuideArrow({ className, skip = false }: { className: string; skip?: boolean }) {
+  const mask = useId();
+  const curve = skip ? "M12 74 C8 30 30 12 66 4" : "M4 12 Q44 45 94 20";
+  return <svg className={className} viewBox={skip ? "0 0 90 80" : "0 0 100 50"} fill="none" aria-hidden="true" focusable="false">
+    <defs><mask id={mask}><path className={styles.guideDraw} pathLength="1" d={curve} stroke="white" strokeWidth="5" /></mask></defs>
+    <path d={curve} stroke="currentColor" strokeWidth="1.3" strokeDasharray="3 6" strokeLinecap="round" mask={`url(#${mask})`} />
+    <path className={styles.guideHead} d={skip ? "M59 9 L66 3 L68 12" : "M85 17 L95 20 L89 28"} stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>;
+}
 
 export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -236,7 +246,10 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
       <motion.div className={`${styles.shell} ${state === "cinema" ? styles.cinemaHidden : ""}`} initial={{ opacity: 0 }} animate={{ opacity: leaving ? 0 : 1 }} transition={{ duration: reduce ? 0 : 0.35 }}>
         <header className={styles.header}>
           <a className={styles.signature} href="#hero" onClick={event => { event.preventDefault(); enter(); }} aria-label="Enter Charuvarthan's portfolio">Charuvarthan<span aria-hidden="true">.</span></a>
-          <button data-skip className={`${styles.skip} ${state !== "puzzle" ? styles.skipGlow : ""}`} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
+          <div className={styles.skipAction}>
+            <button data-skip className={styles.skip} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
+            {state === "final" && finalRead && <GuideArrow className={styles.skipGuide} skip />}
+          </div>
         </header>
 
         <div className={`${styles.composition} ${challengeVisible ? styles.challengeLayout : styles.introLayout}`} data-phase={challengeVisible ? "challenge" : "intro"}>
@@ -250,13 +263,17 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
                     <motion.p layout="position" {...sequence(1.9)} className={styles.interesting}>The work?</motion.p>
                     <motion.p layout="position" {...sequence(2.85)}>Or to know about me?</motion.p>
                   </div>
+                  {challengeVisible && <motion.div className={styles.challengeNote} {...reveal}>
+                    Fancy a challenge? Find mate in one.
+                    <GuideArrow className={styles.boardGuide} />
+                  </motion.div>}
                 </motion.div>
               ) : (
                 <motion.div key="final" data-final-screen {...reveal}>
                   <motion.h1 {...sequence(0)} id="curiosity-title" className={styles.title}>You know what?</motion.h1>
                   <div className={styles.finalSupporting}>
                     <motion.p {...sequence(0.95)}>Whether you solved the puzzle…<br />Or just waited it out…</motion.p>
-                    <motion.p {...sequence(1.9)}><span className={styles.emphasis}>You still ended up here.</span><br />You just wasted 5 to 10 seconds of your life.<br />That was entirely optional.</motion.p>
+                    <motion.p {...sequence(1.9)}>You just wasted 5 to 10 seconds of your life.<br />That was entirely optional.</motion.p>
                     <motion.p {...sequence(2.85)} onAnimationComplete={() => setFinalRead(true)}>The skip button was right there.<br /><span className={styles.emphasis}>Well, since you&apos;ve committed…</span></motion.p>
                   </div>
                 </motion.div>

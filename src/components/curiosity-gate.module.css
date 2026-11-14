@@ -28,9 +28,6 @@
 .skip:hover { color: hsl(var(--foreground)); }
 .skip svg { transition: transform .2s; }
 .skip:hover svg { transform: translate(2px, -2px); }
-.skipGlow { position: relative; color: hsl(var(--foreground)); }
-.skipGlow::before { content: ""; position: absolute; inset: 3px -8px; border-radius: var(--radius); border: 1px solid hsl(var(--foreground) / .18); box-shadow: 0 0 18px hsl(var(--foreground) / .13); pointer-events: none; animation: skip-glow 2.8s ease-in-out infinite; }
-@keyframes skip-glow { 0%, 100% { opacity: .3; } 50% { opacity: .85; } }
 .composition { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: 0; padding: 64px 0 76px; }
 .challengeLayout { grid-template-columns: 1fr 1.08fr; gap: clamp(48px, 7vw, 110px); }
 .introLayout { grid-template-columns: minmax(0, 1fr); gap: 0; }
@@ -38,14 +35,14 @@
 .copy { padding-bottom: 18px; }
 .title { font-size: clamp(36px, 4.3vw, 59px); line-height: 1.08; font-weight: 400; letter-spacing: -.045em; text-wrap: balance; max-width: 470px; }
 .introLayout .title { max-width: 1120px; font-size: clamp(56px, 7.1vw, 104px); line-height: 1.04; }
-.introLayout .introSupporting { display: grid; grid-template-columns: 1.4fr .65fr 1fr; gap: 40px; max-width: none; margin-top: 44px; align-items: start; font-size: 26px; }
+.introLayout .introSupporting { display: grid; grid-template-columns: 1.4fr .65fr 1fr; gap: 28px; max-width: none; margin-top: 30px; align-items: start; font-size: 26px; }
 .introLayout .introSupporting p { margin: 0; }
 .body { color: hsl(var(--muted-foreground)); font-size: 14px; line-height: 1.75; max-width: 355px; margin-top: 30px; }
 .introSupporting { font-size: 23px; }
-.finalSupporting { margin-top: 32px; color: hsl(var(--muted-foreground)); font-size: clamp(22px, 1.85vw, 27px); line-height: 1.5; letter-spacing: -.025em; }
-.finalSupporting p + p { margin-top: 28px; }
-.body p + p { margin-top: 20px; }
-.body .interesting { margin: 28px 0; font-weight: 400; }
+.finalSupporting { margin-top: 24px; color: hsl(var(--muted-foreground)); font-size: clamp(22px, 1.85vw, 27px); line-height: 1.5; letter-spacing: -.025em; }
+.finalSupporting p + p { margin-top: 16px; }
+.body p + p { margin-top: 12px; }
+.body .interesting { margin: 12px 0; font-weight: 400; }
 .emphasis { color: hsl(var(--foreground)); }
 .puzzle { width: 100%; max-width: 500px; justify-self: end; }
 .boardHeading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
@@ -88,11 +85,11 @@
   .introLayout .copy { margin: 0; }
   .introLayout .title { font-size: clamp(43px, 10vw, 64px); line-height: 1.06; }
   .introLayout .introSupporting { display: block; font-size: 23px; margin-top: 30px; max-width: 360px; }
-  .introLayout .introSupporting p + p { margin-top: 22px; }
+  .introLayout .introSupporting p + p { margin-top: 12px; }
   .title { font-size: clamp(36px, 8.8vw, 48px); max-width: 450px; }
   .body { font-size: 13px; line-height: 1.6; margin-top: 22px; max-width: 360px; }
   .body p + p { margin-top: 14px; }
-  .body .interesting { margin: 18px 0; }
+  .body .interesting { margin: 12px 0; }
   .puzzle { justify-self: center; max-width: 440px; }
   .boardHeading { margin-bottom: 14px; }
   .boardHeading h2 { font-size: 15px; }
@@ -102,3 +99,27 @@
 @media (prefers-reduced-motion: reduce) {
   .shell *, .shell *::before, .shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+.skip { border: 0; background: transparent; box-shadow: none; font-weight: 400; }
+.skipAction { position: relative; }
+.skipGuide, .boardGuide { position: absolute; pointer-events: none; color: #c9ad87; opacity: .65; }
+.skipGuide { width: 90px; height: 80px; right: 6px; top: calc(100% + 4px); }
+.challengeNote { position: relative; max-width: 355px; margin-top: 22px; font-size: 14px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+.boardGuide { width: 86px; height: 43px; left: calc(100% + 6px); top: -4px; }
+.guideDraw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: guide-draw .9s cubic-bezier(.22, 1, .36, 1) forwards; }
+.guideHead { opacity: 0; animation: guide-head .25s .65s ease-out forwards; }
+@keyframes guide-draw { to { stroke-dashoffset: 0; } }
+@keyframes guide-head { to { opacity: 1; } }
+@media (max-width: 900px) and (min-width: 681px) {
+  .boardGuide { width: 40px; left: 100%; }
+}
+@media (max-width: 680px) {
+  .skipGuide { width: 52px; height: 34px; right: 12px; }
+  .challengeNote { padding-bottom: 28px; }
+  .boardGuide { width: 54px; height: 35px; left: auto; right: 18px; top: 20px; transform: rotate(65deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .guideDraw { animation: none; stroke-dashoffset: 0; }
+  .guideHead { animation: none; opacity: 1; }
+}
+.skip:focus-visible { outline: none; text-decoration: underline; text-underline-offset: 4px; }
