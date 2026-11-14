@@ -14,7 +14,7 @@ const sections = [
   { id: "projects", label: "Projects" },
   { id: "achievements", label: "Rare Moments" },
   { id: "grind-journal", label: "The Pursuit" },
-  { id: "world", label: "World Map" },
+  { id: "world", label: "A Matter of Perspective" },
   { id: "contact", label: "Contact" },
 ];
 

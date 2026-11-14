@@ -1,5 +1,6 @@
 "use client";
 
+import { PerspectiveReveal } from "@/components/perspective-reveal";
 import { PursuitTimeline } from "@/components/pursuit-timeline";
 import { ScrollSection } from "@/components/scroll-section";
 import dynamic from "next/dynamic";
@@ -194,21 +195,21 @@ export default function Page() {
 
 
       <ScrollSection id="world" className="mb-section-lg">
-        <div className="space-y-content-lg">
-          <BlurFade delay={BLUR_FADE_DELAY * 31}>
-          <div className="flex flex-col items-center justify-center space-y-4 text-center">
-            <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                World Map.
-              </h2>
-              <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Countries I want to visit and work.
-              </p>
-            </div>
+        <PerspectiveReveal className="min-h-[100svh] flex flex-col items-center justify-center text-center">
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">A Matter of Perspective.</h2>
+            <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">How do you see the world?</p>
           </div>
-        </BlurFade>
-          <WorldMap delay={BLUR_FADE_DELAY * 32} />
-        </div>
+        </PerspectiveReveal>
+        <PerspectiveReveal className="space-y-content-md">
+          <h3 className="text-center text-base sm:text-lg font-normal italic text-muted-foreground">I see it like this.</h3>
+          <WorldMap />
+        </PerspectiveReveal>
+        <PerspectiveReveal className="pt-12 sm:pt-16 pb-4">
+          <blockquote className="mx-auto max-w-[540px] text-center text-sm sm:text-base italic leading-relaxed text-muted-foreground">
+            “The world stays the same, yet takes a different shape in every gaze. Perhaps nothing is truly right or wrong, just a matter of perspective i feel”
+          </blockquote>
+        </PerspectiveReveal>
       </ScrollSection>
       <ContactOrbiting />
     </main>
