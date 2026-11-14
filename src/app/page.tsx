@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollSection } from "@/components/scroll-section";
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
@@ -58,7 +59,7 @@ export default function Page() {
     <main className="flex flex-col min-h-[100dvh] py-section-md">
       <TableOfContents />
       
-      <section id="hero" className="mb-section-lg">
+      <ScrollSection id="hero" className="mb-section-lg">
         <div className="w-full space-y-content-lg">
           <div className="gap-2 flex justify-between items-center">
             <div className="flex-col flex flex-1 space-y-1.5">
@@ -88,9 +89,9 @@ export default function Page() {
             </BlurFade>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="about" className="mb-section-lg">
+      <ScrollSection id="about" className="mb-section-lg">
         <div className="space-y-content-md">
         <BlurFade delay={BLUR_FADE_DELAY * 10}>
           <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">About.</h2>
@@ -105,15 +106,9 @@ export default function Page() {
         </BlurFade>
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="achievements" className="mb-section-lg">
-        <div className="space-y-content-md">
-          <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
-        </div>
-      </section>
-
-      <section id="education" className="mb-section-lg">
+      <ScrollSection id="education" className="mb-section-lg">
         <div className="space-y-12">
           <BlurFade delay={BLUR_FADE_DELAY * 19}>
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Education.</h2>
@@ -133,20 +128,20 @@ export default function Page() {
           ))}
         </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="tech-stack" className="mb-section-lg">
+      <ScrollSection id="tech-stack" className="mb-section-lg">
         <TechStack delay={BLUR_FADE_DELAY * 21} />
-      </section>
+      </ScrollSection>
 
-      <section id="currently-brewing" className="mb-section-lg">
+      <ScrollSection id="currently-brewing" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 22}>
             <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Currently Brewing.</h2>
           </BlurFade>
           <div className="max-w-[800px] mx-auto divide-y divide-border/40">
             {[
-              { name: "Inksight", description: "An AI-powered journaling app that turns personal journal entries into meaningful insights and reflections." },
+              { name: "Inksight", description: "An AI-powered journaling app that turns your personal journal entries into meaningful insights, helping you understand yourself and become who you want to be." },
               { name: "Bon Appétit", description: "A cooking app that helps you make something out of whatever's in your fridge, tailored to your protein intake, calorie goals, and available time." },
             ].map((project, index) => (
               <BlurFade key={project.name} delay={BLUR_FADE_DELAY * 23 + index * 0.05}>
@@ -158,9 +153,9 @@ export default function Page() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="projects" className="mb-section-lg">
+      <ScrollSection id="projects" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 22}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -195,35 +190,9 @@ export default function Page() {
             ))}
           </div>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="grind-journal" className="mb-section-lg">
-        <div className="space-y-content-lg">
-          <BlurFade delay={BLUR_FADE_DELAY * 25}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  The Pursuit.
-                </h2>
-                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  The things I genuinely love getting lost in.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 26}>
-            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-              {DATA.pursuits.map((entry, index) => (
-                <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
-                  <BookCard title={entry.title} author={entry.description} number={entry.number} />
-                </BlurFade>
-              ))}
-            </ul>
-          </BlurFade>
-        </div>
-      </section>
-
-      <section id="leetcode" className="mb-section-lg">
+      <ScrollSection id="leetcode" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 29}>
             <div className="flex flex-col items-center justify-center space-y-6 text-center">
@@ -272,9 +241,9 @@ export default function Page() {
             </div>
           </BlurFade>
         </div>
-      </section>
+      </ScrollSection>
 
-      <section id="world" className="mb-section-lg">
+      <ScrollSection id="world" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 31}>
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -290,9 +259,41 @@ export default function Page() {
         </BlurFade>
           <WorldMap delay={BLUR_FADE_DELAY * 32} />
         </div>
-      </section>
+      </ScrollSection>
 
       <ContactOrbiting delay={BLUR_FADE_DELAY * 33} />
+
+      <ScrollSection id="achievements" className="mb-section-lg">
+        <div className="space-y-content-md">
+          <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
+        </div>
+      </ScrollSection>
+
+      <ScrollSection id="grind-journal" className="mb-section-lg">
+        <div className="space-y-content-lg">
+          <BlurFade delay={BLUR_FADE_DELAY * 25}>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  The Pursuit.
+                </h2>
+                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  The things I genuinely love getting lost in.
+                </p>
+              </div>
+            </div>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 26}>
+            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
+              {DATA.pursuits.map((entry, index) => (
+                <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
+                  <BookCard title={entry.title} author={entry.description} number={entry.number} />
+                </BlurFade>
+              ))}
+            </ul>
+          </BlurFade>
+        </div>
+      </ScrollSection>
     </main>
   );
 }

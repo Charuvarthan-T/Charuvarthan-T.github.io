@@ -1,5 +1,6 @@
 "use client";
 
+import { useSectionReveal } from "@/components/scroll-section";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
@@ -8,6 +9,7 @@ interface EthicsQuoteProps {
 }
 
 export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
+  const managed = useSectionReveal();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -17,8 +19,8 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        delay: delay,
+        duration: managed ? 0 : 0.6,
+        delay: managed ? 0 : delay,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },
@@ -30,8 +32,8 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6,
-        delay: delay + 0.2,
+        duration: managed ? 0 : 0.6,
+        delay: managed ? 0 : delay + 0.2,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },
@@ -41,8 +43,8 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
     <motion.div
       ref={ref}
       variants={containerVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={managed ? false : "hidden"}
+      animate={managed || isInView ? "visible" : "hidden"}
       className="space-y-content-md"
     >
       {/* Section title */}

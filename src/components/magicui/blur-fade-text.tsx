@@ -1,5 +1,6 @@
 "use client";
 
+import { useSectionReveal } from "@/components/scroll-section";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useMemo } from "react";
@@ -26,12 +27,15 @@ const BlurFadeText = ({
   yOffset = 8,
   animateByCharacter = false,
 }: BlurFadeTextProps) => {
+  const managed = useSectionReveal();
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0, filter: "blur(8px)" },
     visible: { y: -yOffset, opacity: 1, filter: "blur(0px)" },
   };
   const combinedVariants = variant || defaultVariants;
   const characters = useMemo(() => Array.from(text), [text]);
+
+  if (managed) return <div className="flex"><span className={cn("inline-block", className)}>{text}</span></div>;
 
   if (animateByCharacter) {
     return (

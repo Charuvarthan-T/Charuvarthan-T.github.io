@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { ScrollSection } from "@/components/scroll-section";
+import { motion } from "framer-motion";
 import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { Mail, Linkedin, Github } from "lucide-react";
 import { DATA } from "@/data/resume";
@@ -12,43 +12,21 @@ interface ContactOrbitingProps {
 }
 
 export const ContactOrbiting = ({ delay = 0 }: ContactOrbitingProps) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        delay: delay,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
-  };
-
   const orbitingVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
       transition: {
-        duration: 1,
-        delay: delay + 0.3,
+        duration: 0,
+        delay: 0,
         ease: [0.25, 0.1, 0.25, 1],
       },
     },
   };
 
   return (
-    <motion.section
-      ref={ref}
-      id="contact"
-      variants={containerVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-    >
+    <ScrollSection id="contact">
       <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full">
         <div className="space-y-3">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
@@ -123,6 +101,6 @@ export const ContactOrbiting = ({ delay = 0 }: ContactOrbitingProps) => {
           </div>
         </motion.div>
       </div>
-    </motion.section>
+    </ScrollSection>
   );
 }; 

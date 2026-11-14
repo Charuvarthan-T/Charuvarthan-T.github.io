@@ -1,5 +1,6 @@
 "use client";
 
+import { useSectionReveal } from "@/components/scroll-section";
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
@@ -92,6 +93,7 @@ const TechItemDisplay = ({ tech, showName = false }: { tech: TechItem; showName?
 };
 
 export const TechStack = ({ delay = 0 }: TechStackProps) => {
+  const managed = useSectionReveal();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [showAll, setShowAll] = useState(false);
@@ -102,8 +104,8 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        delay: delay,
+        duration: managed ? 0 : 0.8,
+        delay: managed ? 0 : delay,
       },
     },
   };
@@ -115,8 +117,8 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
     <motion.div
       ref={ref}
       variants={containerVariants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={managed ? false : "hidden"}
+      animate={managed || isInView ? "visible" : "hidden"}
       className="space-y-content-md"
     >
       <div className="flex flex-col items-center justify-center space-y-4 text-center">

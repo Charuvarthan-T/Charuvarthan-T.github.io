@@ -1,5 +1,6 @@
 "use client";
 
+import { useSectionReveal } from "@/components/scroll-section";
 import { AnimatePresence, motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
 
@@ -31,11 +32,13 @@ const BlurFade = ({
   const ref = useRef(null);
   const inViewResult = useInView(ref, { once: true });
   const isInView = !inView || inViewResult;
+  const managed = useSectionReveal();
   const defaultVariants: Variants = {
     hidden: { y: yOffset, opacity: 0, filter: `blur(${blur})` },
     visible: { y: -yOffset, opacity: 1, filter: `blur(0px)` },
   };
   const combinedVariants = variant || defaultVariants;
+  if (managed) return <div className={className}>{children}</div>;
   return (
     <AnimatePresence>
       <motion.div

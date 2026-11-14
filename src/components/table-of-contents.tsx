@@ -8,15 +8,15 @@ import { ChevronRight, ChevronDown } from "lucide-react";
 // Define the sections of your page
 const sections = [
   { id: "about", label: "About" },
-  { id: "achievements", label: "Rare Moments" },
-  { id: "leetcode", label: "LeetCode" },
-  // { id: "work", label: "Work Experience" },
   { id: "education", label: "Education" },
-  // { id: "skills", label: "Skills" },
+  { id: "tech-stack", label: "Tech Stacks" },
   { id: "currently-brewing", label: "Currently Brewing" },
   { id: "projects", label: "Projects" },
-  { id: "grind-journal", label: "The Pursuit" },
+  { id: "leetcode", label: "LeetCode" },
+  { id: "world", label: "World Map" },
   { id: "contact", label: "Contact" },
+  { id: "achievements", label: "Rare Moments" },
+  { id: "grind-journal", label: "The Pursuit" },
 ];
 
 export default function TableOfContents() {
