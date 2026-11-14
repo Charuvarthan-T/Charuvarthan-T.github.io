@@ -10,10 +10,10 @@
   border-radius: inherit;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 24px 12px at 10% 18%, rgb(210 219 230 / .4), transparent),
-    radial-gradient(ellipse 24px 12px at 90% 18%, rgb(210 219 230 / .4), transparent),
-    radial-gradient(ellipse 24px 12px at 10% 82%, rgb(210 219 230 / .4), transparent),
-    radial-gradient(ellipse 24px 12px at 90% 82%, rgb(210 219 230 / .4), transparent);
+    radial-gradient(ellipse 24px 12px at 10% 18%, rgb(201 173 135 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 90% 18%, rgb(201 173 135 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 10% 82%, rgb(201 173 135 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 90% 82%, rgb(201 173 135 / .4), transparent);
   filter: blur(7px);
   opacity: 0;
   transition: opacity .6s cubic-bezier(.22, 1, .36, 1);
