@@ -198,7 +198,7 @@ export default function Page() {
         <PerspectiveReveal className="mb-content-lg flex flex-col items-center justify-center text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">A Matter of Perspective.</h2>
-            <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">How do you see the world?</p>
+            <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">How do you see the world? and you think its right?</p>
           </div>
         </PerspectiveReveal>
         <PerspectiveReveal className="space-y-content-md">
