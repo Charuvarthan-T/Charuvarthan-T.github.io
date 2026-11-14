@@ -110,7 +110,8 @@ export default function TableOfContents() {
         initial={{ opacity: 0, x: 50 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1, duration: 0.5 }}
-        className="hidden md:block fixed top-1/2 right-4 transform -translate-y-1/2 z-50"
+        style={{ y: "-50%" }}
+        className="hidden md:block fixed top-1/2 right-4 z-50"
       >
         <ul className="flex flex-col items-center space-y-2">
           {sections.map((section) => (
@@ -130,7 +131,7 @@ export default function TableOfContents() {
                   className={cn(
                     "w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300",
                     activeSection === section.id
-                      ? "bg-blue-400 scale-125"
+                      ? "bg-blue-400 scale-150"
                       : "group-hover:bg-blue-300"
                   )}
                 />
