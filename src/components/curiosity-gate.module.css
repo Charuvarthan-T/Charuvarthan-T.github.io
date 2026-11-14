@@ -155,3 +155,12 @@
 @media (min-width: 681px) {
   .introLayout .introSupporting p, .introLayout .body.introSupporting .interesting { margin: 0; }
 }
+
+/* Fit the opening title to one line inside its own responsive column. */
+.introLayout .copy { container-type: inline-size; }
+.introLayout .title {
+  max-width: none;
+  white-space: nowrap;
+  text-wrap: nowrap;
+  font-size: min(clamp(61.6px, 7.81vw, 114.4px), 9.2cqw);
+}

@@ -256,7 +256,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
             <AnimatePresence mode="wait">
               {state === "puzzle" ? (
                 <motion.div key="intro" exit={{ opacity: 0, y: reduce ? 0 : -12 }} transition={{ duration: reduce ? 0 : 0.4 }}>
-                  <motion.h1 layout="position" {...sequence(0)} id="curiosity-title" className={styles.title}>The human urge to know.</motion.h1>
+                  <motion.h1 layout={!reduce} {...sequence(0)} id="curiosity-title" className={styles.title}>The human urge to know.</motion.h1>
                   <div className={`${styles.body} ${styles.introSupporting}`}>
                     <motion.p layout="position" {...sequence(0.95)}>Came for the design?</motion.p>
                     <motion.p layout="position" {...sequence(1.9)} className={styles.interesting}>The work?</motion.p>
