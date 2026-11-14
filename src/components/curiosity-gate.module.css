@@ -102,24 +102,34 @@
 
 .skip { border: 0; background: transparent; box-shadow: none; font-weight: 400; }
 .skipAction { position: relative; }
-.skipGuide, .boardGuide { position: absolute; pointer-events: none; color: #c9ad87; opacity: .65; }
-.skipGuide { width: 90px; height: 80px; right: 6px; top: calc(100% + 4px); }
+.boardGuide { position: absolute; pointer-events: none; color: #c9ad87; opacity: .65; }
 .challengeNote { position: relative; max-width: 355px; margin-top: 22px; font-size: 14px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
-.boardGuide { width: 86px; height: 43px; left: calc(100% + 6px); top: -4px; }
+.boardGuide { width: 108px; height: 44px; left: calc(100% + 6px); top: -4px; }
 .guideDraw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: guide-draw .9s cubic-bezier(.22, 1, .36, 1) forwards; }
 .guideHead { opacity: 0; animation: guide-head .25s .65s ease-out forwards; }
 @keyframes guide-draw { to { stroke-dashoffset: 0; } }
 @keyframes guide-head { to { opacity: 1; } }
 @media (max-width: 900px) and (min-width: 681px) {
-  .boardGuide { width: 40px; left: 100%; }
+  .boardGuide { width: 46px; left: 100%; }
 }
 @media (max-width: 680px) {
-  .skipGuide { width: 52px; height: 34px; right: 12px; }
-  .challengeNote { padding-bottom: 28px; }
-  .boardGuide { width: 54px; height: 35px; left: auto; right: 18px; top: 20px; transform: rotate(65deg); }
+    .challengeNote { padding-bottom: 28px; }
+  .boardGuide { width: 66px; height: 38px; left: auto; right: 18px; top: 20px; transform: rotate(65deg); }
 }
 @media (prefers-reduced-motion: reduce) {
   .guideDraw { animation: none; stroke-dashoffset: 0; }
   .guideHead { animation: none; opacity: 1; }
 }
 .skip:focus-visible { outline: none; text-decoration: underline; text-underline-offset: 4px; }
+
+.skipPulse { position: relative; animation: skip-nudge .9s ease-in-out 2; }
+.skipPulse::after {
+  content: ""; position: absolute; inset: -5px -10px; pointer-events: none;
+  border-radius: 50%; background: radial-gradient(ellipse, rgb(201 173 135 / .16), transparent 72%);
+  filter: blur(8px); opacity: 0; animation: skip-ambient .9s ease-in-out 2;
+}
+@keyframes skip-nudge { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+@keyframes skip-ambient { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .skipPulse, .skipPulse::after { animation: none; }
+}
