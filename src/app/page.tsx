@@ -107,7 +107,7 @@ export default function Page() {
           <div className="max-w-[800px] mx-auto divide-y divide-border/40">
             {[
               { name: "Inksight", description: "An AI-powered journaling app that turns your personal journal entries into meaningful insights, helping you understand yourself and become who you want to be." },
-              { name: "Bon Appétit", description: "A cooking app that helps you make something out of whatever's in your fridge, tailored to your protein intake, calorie goals, and available time." },
+              { name: "Bon Appétit", description: "A cooking app built to solve the everyday struggles of living alone, helping you turn whatever’s in your fridge into a meal that fits your protein intake, calorie goals, and available time." },
             ].map((project, index) => (
               <BlurFade key={project.name} delay={BLUR_FADE_DELAY * 23 + index * 0.05}>
                 <div className="grid grid-cols-1 sm:grid-cols-[0.8fr_1.4fr] items-center gap-4 sm:gap-10 py-10 sm:py-12">

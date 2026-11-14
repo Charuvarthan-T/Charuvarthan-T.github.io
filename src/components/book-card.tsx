@@ -25,7 +25,7 @@ export function BookCard({
           <><em>love playing football</em> and <strong>A proud and unwavering <span className={styles.liverpool}>Liverpool FC</span> supporter. YNWA.</strong></>
         ) : title === "Competitive Programming" ? author.split(/(LeetCode|Guardian)/).map((part, index) =>
           part === "LeetCode" || part === "Guardian" ? (
-            <a key={index} className={part === "LeetCode" ? "text-[#3B82F6] hover:underline underline-offset-2" : "text-[#C8102E] hover:underline underline-offset-2"} href={part === "LeetCode" ? "https://leetcode.com/u/charuvarthan" : "https://leetcode.com/u/_abyss/"} target="_blank" rel="noopener noreferrer">{part}</a>
+            <a key={index} className="text-[#3B82F6] italic hover:underline underline-offset-2 whitespace-nowrap" href={part === "LeetCode" ? "https://leetcode.com/u/charuvarthan" : "https://leetcode.com/u/_abyss/"} target="_blank" rel="noopener noreferrer">{part}<span aria-hidden="true" className="ml-0.5 inline-block text-[0.75em] not-italic">↗</span></a>
           ) : part
         ) : author}</p>
       </div>
