@@ -73,7 +73,7 @@ export const DATA = {
 
 projects: [
   {
-    title: "Raseed – AI Receipt Manager",
+    title: "Raseed: AI Receipt Manager",
     href: "https://github.com/TensorTroops/Raseed",
     dates: "2025 - Present",
     active: true,
@@ -212,7 +212,7 @@ books: [
     books: [
       {
         title: "800+ Problems Solved",
-        author: "Problem solving — dynamic programming, graphs, and advanced algorithms.",
+        author: "Problem solving: dynamic programming, graphs, and advanced algorithms.",
         number: 1,
       },
       {
@@ -226,8 +226,8 @@ books: [
     theme: "Research Sparks",
     books: [
       {
-        title: "IEEE Paper – LSTM-Driven SOC Estimation",
-        author: "Published at PIICON 2024 — leveraging LSTM networks for accurate state-of-charge prediction in EV batteries.",
+        title: "IEEE Paper: LSTM-Driven SOC Estimation",
+        author: "Published at PIICON 2024: leveraging LSTM networks for accurate state-of-charge prediction in EV batteries.",
         number: 3,
       },
       {
@@ -252,7 +252,7 @@ books: [
       },
       {
         title: "Computer Networks",
-        author: "Mastering TCP/IP, routing, DNS, HTTP/2, and WebSockets — the backbone of real-time systems.",
+        author: "Mastering TCP/IP, routing, DNS, HTTP/2, and WebSockets: the backbone of real-time systems.",
         number: 7,
       },
       {
@@ -267,12 +267,12 @@ books: [
     books: [
       {
         title: "GenderX AI Hackathon",
-        author: "🏆 Winner — built AI-driven solutions for gender inclusivity with impact-focused design.",
+        author: "🏆 Winner: built AI-driven solutions for gender inclusivity with impact-focused design.",
         number: 9,
       },
       {
         title: "Google Cloud Agentic AI Day",
-        author: "⚡ Breakthrough Concept Award — recognized for next-gen agentic AI design.",
+        author: "⚡ Breakthrough Concept Award: recognized for next-gen agentic AI design.",
         number: 10,
       },
     ],

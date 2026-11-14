@@ -8,7 +8,7 @@ import { ChevronRight, ChevronDown } from "lucide-react";
 // Define the sections of your page
 const sections = [
   { id: "about", label: "About" },
-  { id: "achievements", label: "Rare moments" },
+  { id: "achievements", label: "Rare Moments" },
   { id: "leetcode", label: "LeetCode" },
   // { id: "work", label: "Work Experience" },
   { id: "education", label: "Education" },

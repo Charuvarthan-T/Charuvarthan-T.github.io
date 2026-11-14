@@ -256,7 +256,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
                   <motion.h1 {...sequence(0)} id="curiosity-title" className={styles.title}>You know what?</motion.h1>
                   <div className={styles.finalSupporting}>
                     <motion.p {...sequence(0.95)}>Whether you solved the puzzle…<br />Or just waited it out…</motion.p>
-                    <motion.p {...sequence(1.9)}><span className={styles.emphasis}>You still ended up here.</span><br />You just wasted 5–10 seconds of your life.<br />That was entirely optional.</motion.p>
+                    <motion.p {...sequence(1.9)}><span className={styles.emphasis}>You still ended up here.</span><br />You just wasted 5 to 10 seconds of your life.<br />That was entirely optional.</motion.p>
                     <motion.p {...sequence(2.85)} onAnimationComplete={() => setFinalRead(true)}>The skip button was right there.<br /><span className={styles.emphasis}>Well, since you&apos;ve committed…</span></motion.p>
                   </div>
                 </motion.div>

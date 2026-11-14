@@ -94,7 +94,7 @@ export default function Page() {
       <section id="about" className="mb-section-lg">
         <div className="space-y-content-md">
         <BlurFade delay={BLUR_FADE_DELAY * 10}>
-          <h2 className="text-xl font-bold">About</h2>
+          <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">About</h2>
         </BlurFade>
           <div className="space-y-content-sm">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
@@ -117,7 +117,7 @@ export default function Page() {
       <section id="education" className="mb-section-lg">
         <div className="space-y-12">
           <BlurFade delay={BLUR_FADE_DELAY * 19}>
-            <h2 className="text-xl font-bold">Education</h2>
+            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Education</h2>
           </BlurFade>
           <div className="space-y-0">
           {DATA.education.map((education, id) => (

@@ -125,7 +125,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
             Tech Stacks
           </h2>
           <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Technologies I’ve explored through official documentation and hands-on projects.
+            Tech I’ve dug into through the docs and put to use in projects.
           </p>
         </div>
       </div>
@@ -191,7 +191,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                 {category.category === "AI & ML" && (
                   <div className="space-y-2 text-sm text-muted-foreground text-center max-w-2xl mx-auto">
                     <p>I don’t wish to list every package I import and call it a tech stack, ik.</p>
-                    <p>Comfortable with the fundamentals and the math—enough to see the bigger picture, not just the loss curve.</p>
+                    <p>Comfortable with the fundamentals and the math, enough to see the bigger picture, not just the loss curve.</p>
                   </div>
                 )}
 
@@ -233,10 +233,10 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                 ) : null}
                 {category.category === "AI & ML" && (
                   <div className="space-y-3 text-center">
-                    <h4 className="text-sm font-medium text-muted-foreground">Areas of knowledge</h4>
+                    <h4 className="text-sm font-medium text-foreground/80">Areas of Knowledge</h4>
                     <div className="flex flex-wrap justify-center gap-2">
                       {aiKnowledge.map((area, index) => (
-                        <motion.span key={area} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: categoryIndex * 0.1 + index * 0.03 }} className="rounded-full border border-border/50 px-3 py-1 text-xs text-muted-foreground">
+                        <motion.span key={area} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: categoryIndex * 0.1 + index * 0.03 }} className="rounded-full border border-border/50 px-3 py-1 text-xs text-foreground/80">
                           {area}
                         </motion.span>
                       ))}
