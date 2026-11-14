@@ -41,6 +41,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const [state, setState] = useState<"puzzle" | "final" | "mating" | "cinema">("puzzle");
   const [challengeVisible, setChallengeVisible] = useState(false);
   const [finalRead, setFinalRead] = useState(false);
+  const [skipMentionVisible, setSkipMentionVisible] = useState(false);
   const [kingOrigin, setKingOrigin] = useState<KingOrigin | null>(null);
   const [fen, setFen] = useState(PUZZLE_FEN);
   const [selected, setSelected] = useState<Square | null>(null);
@@ -247,7 +248,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
         <header className={styles.header}>
           <a className={styles.signature} href="#hero" onClick={event => { event.preventDefault(); enter(); }} aria-label="Enter Charuvarthan's portfolio">Charuvarthan<span aria-hidden="true">.</span></a>
           <div className={styles.skipAction}>
-            <button data-skip className={`${styles.skip} ${state === "final" && finalRead ? styles.skipPulse : ""}`} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
+            <button data-skip className={`${styles.skip} ${state === "final" && skipMentionVisible ? styles.skipPulse : ""}`} onClick={enter}>Skip this nonsense <ArrowUpRight size={14} aria-hidden="true" /></button>
           </div>
         </header>
 
@@ -273,7 +274,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
                   <div className={styles.finalSupporting}>
                     <motion.p {...sequence(0.95)}>Whether you solved the puzzle…<br />Or just waited it out…</motion.p>
                     <motion.p {...sequence(1.9)}>You just wasted 5 to 10 seconds of your life.<br />That was entirely optional.</motion.p>
-                    <motion.p {...sequence(2.85)} onAnimationComplete={() => setFinalRead(true)}>The skip button was right there.<br /><span className={styles.emphasis}>Well, since you&apos;ve committed…</span></motion.p>
+                    <motion.p {...sequence(2.85)} onAnimationComplete={() => { setSkipMentionVisible(true); setFinalRead(true); }}>The skip button was right there.<br /><span className={styles.emphasis}>Well, since you&apos;ve committed…</span></motion.p>
                   </div>
                 </motion.div>
               )}
