@@ -15,8 +15,9 @@ export const ContactOrbiting = () => {
           </p>
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">In case you’re up for a collaboration.</h2>
         </div>
-        <div id="contact-dock-anchor" className="relative h-40 w-full" aria-hidden="true">
-          <svg className={styles.arrow} viewBox="0 0 420 160" fill="none" preserveAspectRatio="none" focusable="false">
+        <div id="contact-dock-anchor" className="relative h-40 w-full">
+          <p className={styles.arrowSubtitle}>Btw these are the only social platforms I’m around on.</p>
+          <svg aria-hidden="true" className={styles.arrow} viewBox="0 0 420 160" fill="none" preserveAspectRatio="none" focusable="false">
             <defs>
               <mask id={arrowMask} maskUnits="userSpaceOnUse" x="0" y="0" width="420" height="160">
                 <path className={styles.reveal} pathLength="1" d="M88 3 C31 8 9 82 65 80" stroke="white" strokeWidth="6" />
