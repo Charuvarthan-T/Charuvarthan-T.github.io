@@ -66,18 +66,18 @@ export default function Page() {
                 delay={BLUR_FADE_DELAY}
                 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                 yOffset={8}
-                text={`Hi, I'm ${DATA.name.split(" ")[0]}.`}
+                text={`Well, hello, I'm ${DATA.name.split(" ")[0]}.`}
               />
               <BlurFadeText
+                className="max-w-[600px] italic text-[#876b4d] dark:text-[#c9ad87] md:text-xl"
                 delay={BLUR_FADE_DELAY * 1.5}
-                className="text-sm text-muted-foreground md:text-base"
-                yOffset={8}
-                text={DATA.location ? `Based in ${DATA.location}` : ''}
+                text={DATA.description}
               />
               <BlurFadeText
-                className="max-w-[600px] text-muted-foreground md:text-xl"
                 delay={BLUR_FADE_DELAY * 2}
-                text={DATA.description}
+                className="text-sm text-muted-foreground not-italic md:text-base"
+                yOffset={8}
+                text={DATA.location ? `Based in ${DATA.location}.` : ''}
               />
             </div>
             <BlurFade delay={BLUR_FADE_DELAY * 3}>
@@ -93,7 +93,7 @@ export default function Page() {
       <section id="about" className="mb-section-lg">
         <div className="space-y-content-md">
         <BlurFade delay={BLUR_FADE_DELAY * 10}>
-          <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">About</h2>
+          <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">About.</h2>
         </BlurFade>
           <div className="space-y-content-sm">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
@@ -116,7 +116,7 @@ export default function Page() {
       <section id="education" className="mb-section-lg">
         <div className="space-y-12">
           <BlurFade delay={BLUR_FADE_DELAY * 19}>
-            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Education</h2>
+            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Education.</h2>
           </BlurFade>
           <div className="space-y-0">
           {DATA.education.map((education, id) => (
@@ -151,7 +151,7 @@ export default function Page() {
             ].map((project, index) => (
               <BlurFade key={project.name} delay={BLUR_FADE_DELAY * 23 + index * 0.05}>
                 <div className="grid grid-cols-1 sm:grid-cols-[0.8fr_1.4fr] items-center gap-4 sm:gap-10 py-10 sm:py-12">
-                  <h3 className="font-serif italic text-3xl sm:text-4xl font-normal tracking-tight text-stone-800 dark:text-stone-200">{project.name}</h3>
+                  <h3 className="font-['Georgia',serif] italic text-2xl sm:text-3xl font-normal tracking-tight text-[#876b4d] dark:text-[#c9ad87]">{project.name}</h3>
                   <p className="text-sm sm:text-base leading-relaxed text-stone-600 dark:text-stone-400">{project.description}</p>
                 </div>
               </BlurFade>

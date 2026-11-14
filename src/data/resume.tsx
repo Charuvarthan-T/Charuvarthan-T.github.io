@@ -8,7 +8,7 @@ export const DATA = {
   location: "India",
   locationLink: "https://www.google.com/maps/place/India",
   description:
-    "Developer obsessed with how things work under the hood whether it's systems, networks, or AI. Just learning, Just shipping.",
+    "Trying to understand the how and why of everything.",
 
   summary:
     "I try my best to write clean code, or at least try to keep the chaos within engineering principles. My product ideas outnumber my finished projects by a large margin, some rest in repos with nothing but initial commits, while others fade from my own memory, lost somewhere in the abyss of ideas I'll probably never remember (have a really *bad memory*). Usually found committing at night, somewhere between midnight motivation and the *insomnia* I suffer from.",
@@ -75,7 +75,7 @@ projects: [
   {
     title: "Raseed: AI Receipt Manager",
     href: "https://github.com/TensorTroops/Raseed",
-    dates: "2025 - Present",
+    dates: "",
     active: true,
     description:
       "An AI-powered receipt manager with Google Wallet integration and intelligent financial insights. A hackathon-recognized project.",
@@ -99,7 +99,7 @@ projects: [
   {
     title: "LegalSphere",
     href: "https://github.com/Charuvarthan-T/LegalSphere",
-    dates: "2025 - Present",
+    dates: "",
     active: true,
     description:
       "An AI-powered legal assistant for research, case tracking, and document management. A hackathon-recognized project.",

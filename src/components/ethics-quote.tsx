@@ -46,7 +46,7 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       className="space-y-content-md"
     >
       {/* Section title */}
-      <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Rare Moments</h2>
+      <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Rare Moments.</h2>
 
       {/* Achievements list */}
       <motion.div
