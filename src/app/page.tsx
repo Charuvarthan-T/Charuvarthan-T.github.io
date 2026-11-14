@@ -1,5 +1,6 @@
 "use client";
 
+import { PursuitTimeline } from "@/components/pursuit-timeline";
 import { ScrollSection } from "@/components/scroll-section";
 import dynamic from "next/dynamic";
 
@@ -180,13 +181,13 @@ export default function Page() {
             </div>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 26}>
-            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
+            <PursuitTimeline>
               {DATA.pursuits.map((entry, index) => (
                 <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
                   <BookCard title={entry.title} author={entry.description} number={entry.number} />
                 </BlurFade>
               ))}
-            </ul>
+            </PursuitTimeline>
           </BlurFade>
         </div>
       </ScrollSection>

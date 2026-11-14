@@ -1,0 +1,26 @@
+.timeline { position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 3px;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(transparent, rgb(201 173 135 / .65), transparent);
+  filter: blur(1px);
+  box-shadow: 0 0 9px rgb(201 173 135 / .18);
+  opacity: 0;
+}
+.timeline[data-timeline-started="true"]::before {
+  animation: honey-flow 5s cubic-bezier(.3, .1, .4, 1) 1 forwards;
+}
+@keyframes honey-flow {
+  0% { transform: translateY(-100%); opacity: 0; }
+  15% { opacity: .7; }
+  80% { opacity: .7; }
+  100% { transform: translateY(455%); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .timeline[data-timeline-started="true"]::before { animation: none; }
+}
