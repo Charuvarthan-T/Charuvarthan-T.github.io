@@ -26,72 +26,41 @@ interface TechCategory {
 
 const techCategories: TechCategory[] = [
   {
-    category: "Core Scientific & Computational Tools",
-    subcategories: [
-      {
-        name: "Languages & Environments",
-        items: [
-          { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-          { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
-          { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
-          { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-          { name: "Go", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
-          { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-          { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-          { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
-          { name: "FastAPI", logo: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" },
-          { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
-          { name: "Neo4j", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" },
-          { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-          { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" }
-        ]
-      },
-    ]
+    category: "Languages & Environments",
+    items: [
+      { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+      { name: "C", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" },
+      { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" },
+      { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
+      { name: "Go", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" },
+    ],
   },
   {
-    category: "ML & AI Frameworks",
-    items: [
-      { name: "PyTorch", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" },
-      { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
-      { name: "Scikit-learn", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikitlearn/scikitlearn-original.svg" },
-      { name: "Transformers", logo: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg" },
-      { name: "NumPy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" },
-      { name: "Pandas", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" }
-    ]
+    category: "AI & ML",
+    items: [],
   },
   {
     category: "Web Development",
-    subcategories: [
-      {
-        name: "Languages & Frontend",
-        items: [
-          { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-          { name: "JavaScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" },
-        ]
-      },
-      {
-        name: "Frameworks & Libraries",
-        items: [
-          { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-          { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-          { name: "Tailwind CSS", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg" },
-          { name: "shadcn/ui", logo: "https://ui.shadcn.com/favicon.ico" },
-          { name: "Framer Motion", logo: "https://cdn.dribbble.com/userupload/28046663/file/still-879bd5f88faa2c210d4013090939ae0e.png" },
-        ]
-      }
-    ]
+    items: [
+      { name: "React", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+      { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+    ],
   },
   {
     category: "Backend & DevOps",
     items: [
       { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-plain.svg" },
+      { name: "FastAPI", logo: "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png" },
+      { name: "Django", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" },
+      { name: "Firebase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+      { name: "Neo4j", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg" },
       { name: "MySQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
       { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
-      { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-      { name: "GitHub", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" }
-    ]
-  }
+    ],
+  },
 ];
+
+const aiKnowledge = ["RAG", "Reinforcement Learning (RL)", "LLMs", "Fine-tuning", "DL", "Computer Vision"];
 
 // Flatten all items for the scrolling marquee
 const allTechItems: TechItem[] = techCategories.flatMap(category =>
@@ -153,10 +122,10 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
       <div className="flex flex-col items-center justify-center space-y-4 text-center">
         <div className="space-y-2">
           <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-            Tech Stack.
+            Tech Stacks
           </h2>
           <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-            Technologies and tools I work with to build innovative solutions.
+            Technologies I’ve explored through official documentation and hands-on projects.
           </p>
         </div>
       </div>
@@ -219,6 +188,13 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                   {category.category}
                 </h3>
 
+                {category.category === "AI & ML" && (
+                  <div className="space-y-2 text-sm text-muted-foreground text-center max-w-2xl mx-auto">
+                    <p>I don’t wish to list every package I import and call it a tech stack, ik.</p>
+                    <p>Comfortable with the fundamentals and the math—enough to see the bigger picture, not just the loss curve.</p>
+                  </div>
+                )}
+
                 {category.subcategories ? (
                   <div className="space-y-8">
                     {category.subcategories.map((subcategory, subIndex) => (
@@ -241,7 +217,7 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                       </div>
                     ))}
                   </div>
-                ) : (
+                ) : category.items?.length ? (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 justify-items-center">
                     {category.items?.map((tech, techIndex) => (
                       <motion.div
@@ -253,6 +229,18 @@ export const TechStack = ({ delay = 0 }: TechStackProps) => {
                         <TechItemDisplay tech={tech} showName={true} />
                       </motion.div>
                     ))}
+                  </div>
+                ) : null}
+                {category.category === "AI & ML" && (
+                  <div className="space-y-3 text-center">
+                    <h4 className="text-sm font-medium text-muted-foreground">Areas of knowledge</h4>
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {aiKnowledge.map((area, index) => (
+                        <motion.span key={area} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: categoryIndex * 0.1 + index * 0.03 }} className="rounded-full border border-border/50 px-3 py-1 text-xs text-muted-foreground">
+                          {area}
+                        </motion.span>
+                      ))}
+                    </div>
                   </div>
                 )}
               </motion.div>
