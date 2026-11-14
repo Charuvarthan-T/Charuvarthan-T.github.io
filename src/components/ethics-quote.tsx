@@ -46,20 +46,17 @@ export const EthicsQuote = ({ delay = 0 }: EthicsQuoteProps) => {
       className="space-y-content-md"
     >
       {/* Section title */}
-      <h2 className="text-xl font-bold">Achievements</h2>
+      <h2 className="text-xl font-bold">Rare moments</h2>
 
       {/* Achievements list */}
       <motion.div
         variants={textVariants}
         className="space-y-content-sm"
       >
-        <ul className="list-disc pl-6 text-sm text-muted-foreground dark:text-muted-foreground">
-<li>Winner at GenderX AI Hackathon & recognized at Google Cloud Agentic AI Day (Breakthrough Concept Award).</li>
-<li>Solved 1000+ problems on LeetCode and built strong foundations in DSA & system design.</li>
-<li>Published research paper on LSTM-driven battery SoC estimation at IEEE PIICON 2024.</li>
-<li>Built and deployed full-stack applications integrating AI, Firebase, and Next.js.</li>
-<li>Contributed to open-source projects, collaborating with global developer communities.</li>
-<li>Actively learning and mastering Operating Systems, Computer Networks, and DBMS for FAANG interviews.</li>
+        <ul className="list-disc space-y-2 pl-6 text-sm text-muted-foreground dark:text-muted-foreground">
+<li><strong>GenderX AI Hackathon</strong> — Winner. (had to move to a new city for the first time to do something useful)</li>
+<li><strong>Google Cloud Agentic AI Day</strong> — Breakthrough Concept Award. 30 hours of chaos and Appetizing food</li>
+<li><strong>IEEE PIICON 2024</strong> — Published <em>LSTM-Driven State of Charge Estimation for Battery Management</em>. (yep in 1st year at college, long before)</li>
 
         </ul>
       </motion.div>

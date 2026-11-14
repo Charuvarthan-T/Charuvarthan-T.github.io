@@ -11,7 +11,7 @@ export const DATA = {
     "Developer obsessed with how things work under the hood whether it's systems, networks, or AI. Just learning, Just shipping.",
 
   summary:
-    "I'm Charuvarthan, a developer who never really fit into the easy lane. What hooked me wasn't just writing code it was the chase of making systems smarter, faster, and harder to break. Somewhere along the way, I found myself publishing research on LSTMs for battery systems, diving into CS fundamentals like they were boss fights, and grinding LeetCode like it's a sport. For me, tech isn't just about building apps it's about shaping ideas into systems that can stand tall in the real world. Whether it's system design, operating systems, or AI, I'm in it for the depth, the grind, and the fun of solving problems that actually matter.",
+    "I try my best to write clean code, or at least try to keep the chaos within engineering principles. My product ideas outnumber my finished projects by a large margin, some rest in repos with nothing but initial commits, while others fade from my own memory, lost somewhere in the abyss of ideas I'll probably never remember (have a really *bad memory*). Usually found committing at night, somewhere between midnight motivation and the *insomnia* I suffer from.",
   avatarUrl: "/me.jpeg",
 
   navbar: [
@@ -63,7 +63,7 @@ export const DATA = {
     {
       school: "Amrita Vishwa Vidyapeetham",
       // href: "https://www.amrita.edu",
-      degree: "Bachelor of Technology in Artificial intelligence Engineering",
+      degree: "Bachelor of Technology, Computer Science and Artificial Intelligence Engineering",
       logoUrl: "/cityuhk.jpg",
       start: "2023",
       end: "2027",

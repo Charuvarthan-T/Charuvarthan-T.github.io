@@ -99,20 +99,16 @@ export default function Page() {
           <div className="space-y-content-sm">
         <BlurFade delay={BLUR_FADE_DELAY * 11}>
           <p className="prose max-w-full text-pretty font-sans text-sm text-muted-foreground dark:prose-invert">
-            {DATA.summary.split('\n\n').map((para, idx) => (
-              <span key={idx}>
-                {para}
-                <br />
-                <br />
-              </span>
-            ))}
+            {DATA.summary.split(/(\*[^*]+\*)/g).map((part, idx) =>
+              part.startsWith("*") ? <em key={idx}>{part.slice(1, -1)}</em> : part
+            )}
           </p>
         </BlurFade>
           </div>
         </div>
       </section>
 
-      <section id="ethics" className="mb-section-lg">
+      <section id="achievements" className="mb-section-lg">
         <div className="space-y-content-md">
           <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
         </div>

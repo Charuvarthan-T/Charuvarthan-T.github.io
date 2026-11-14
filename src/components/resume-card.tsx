@@ -43,35 +43,28 @@ export const TimelineItem = ({
   };
 
   const content = (
-    <div className="relative pl-6 sm:pl-8 pb-8 sm:pb-12 last:pb-0">
+    <div className="relative pb-8 sm:pb-12 last:pb-0">
       {/* Timeline line */}
       {!isLast && (
         <div className="absolute left-4 sm:left-6 top-10 sm:top-12 bottom-0 w-0.5 bg-gradient-to-b from-border to-muted/30" />
       )}
       
-      {/* Timeline dot with logo */}
-      <div className="absolute left-0 top-0 w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 border-background shadow-lg bg-background flex items-center justify-center">
-        <Avatar className="size-6 sm:size-10 border">
-          <AvatarImage
-            src={logoUrl}
-            alt={altText}
-            className="object-contain"
-          />
-          <AvatarFallback className="text-xs">{altText[0]}</AvatarFallback>
-        </Avatar>
-      </div>
-
       {/* Content */}
-      <div className="group cursor-pointer" onClick={handleClick}>
+      <div className={cn("group", (description || bullets) && "cursor-pointer")} onClick={handleClick}>
         <div className="bg-card border border-border/50 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md hover:border-border transition-all duration-300">
+          <div className="flex items-center gap-4">
+            <Avatar className="size-10 sm:size-12 shrink-0 border">
+              <AvatarImage src={logoUrl} alt={altText} className="object-contain" />
+              <AvatarFallback className="text-xs">{altText[0]}</AvatarFallback>
+            </Avatar>
           {/* Header */}
-          <div className="space-y-3 sm:space-y-0 sm:flex sm:items-start sm:justify-between sm:gap-4 mb-3">
-            <div className="flex-1">
+          <div className="min-w-0 flex-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+            <div className="min-w-0 flex-1">
               <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-200 leading-tight">
                 {title}
               </h3>
               {subtitle && (
-                <p className="text-muted-foreground text-sm mt-1 leading-relaxed whitespace-pre-line">
+                <p className="text-muted-foreground text-xs sm:text-sm mt-1 leading-relaxed whitespace-pre-line">
                   {subtitle}
                 </p>
               )}
@@ -104,6 +97,8 @@ export const TimelineItem = ({
                 />
               )}
             </div>
+          </div>
+
           </div>
 
           {/* Expandable content */}
