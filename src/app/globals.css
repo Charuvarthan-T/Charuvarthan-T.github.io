@@ -79,6 +79,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Entry hands focus to this container; controls retain their focus rings. */
+  main[tabindex="-1"]:focus {
+    outline: 0;
+  }
 }
 
 @layer utilities {

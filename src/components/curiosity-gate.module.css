@@ -19,8 +19,8 @@
 .dialog::backdrop { background: hsl(var(--background)); }
 .dialog[data-cinematic="true"], .dialog[data-cinematic="true"]::backdrop { background: transparent; }
 .cinemaHidden { visibility: hidden; pointer-events: none; }
-.shell { max-width: 1280px; min-height: 100dvh; margin: auto; padding: 34px 64px 24px; display: flex; flex-direction: column; }
-.header, .footer { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.shell { max-width: 1280px; min-height: 100dvh; margin: auto; padding: 34px 64px 40px; display: flex; flex-direction: column; }
+.header { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .header { position: sticky; top: 0; z-index: 3; background: hsl(var(--background)); }
 .signature { font-size: 18px; font-weight: 400; letter-spacing: -.4px; }
 .signature span { color: hsl(var(--muted-foreground)); }
@@ -74,13 +74,12 @@
 .feedback { font-size: 12px; line-height: 1.5; color: hsl(var(--foreground)); }
 .deselect { padding: 8px; color: hsl(var(--muted-foreground)); }
 .instructions { font-size: 10px; color: hsl(var(--muted-foreground)); line-height: 1.6; margin-top: 6px; }
-.footer { font-size: 10px; color: hsl(var(--muted-foreground)); line-height: 1.6; }
 .idleBoard { opacity: .45; }
 .signature:focus-visible, .skip:focus-visible, .deselect:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 5px; border-radius: 2px; }
 @media (min-width: 1500px) { .shell { max-width: 1380px; } .composition { gap: 140px; } .puzzle { max-width: 530px; } }
-@media (max-width: 900px) { .shell { padding: 24px 32px; } .composition { gap: 36px; } .title { font-size: 40px; } .body { font-size: 13px; } .introSupporting { font-size: 21px; } .finalSupporting { font-size: 22px; } .introLayout .copy { margin-left: 24px; margin-right: 0; } .introLayout .introSupporting { gap: 24px; font-size: 23px; grid-template-columns: 1.2fr .65fr 1fr; } }
+@media (max-width: 900px) { .shell { padding: 24px 32px 40px; } .composition { gap: 36px; } .title { font-size: 40px; } .body { font-size: 13px; } .introSupporting { font-size: 21px; } .finalSupporting { font-size: 22px; } .introLayout .copy { margin-left: 24px; margin-right: 0; } .introLayout .introSupporting { gap: 24px; font-size: 23px; grid-template-columns: 1.2fr .65fr 1fr; } }
 @media (max-width: 680px) {
-  .shell { padding: 16px 24px 24px; }
+  .shell { padding: 16px 24px 40px; }
   .header { gap: 12px; }
   .signature { font-size: 15px; }
   .skip { font-size: 11px; }
@@ -98,7 +97,6 @@
   .boardHeading { margin-bottom: 14px; }
   .boardHeading h2 { font-size: 15px; }
   .boardFrame { padding: 6px; }
-  .footer span:last-child { display: none; }
   .rank, .file { font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {

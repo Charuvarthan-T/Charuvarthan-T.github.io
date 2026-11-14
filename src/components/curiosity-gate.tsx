@@ -293,7 +293,6 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
           </motion.div>}
         </div>
 
-        <footer className={styles.footer}><span>A small detour. An entirely optional one.</span><span>One move between strangers.</span></footer>
       </motion.div>
       {state === "cinema" && kingOrigin && <KingDeparture origin={kingOrigin} onComplete={enter} onSkip={enter} leaving={leaving} />}
     </dialog>
