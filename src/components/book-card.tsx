@@ -23,6 +23,10 @@ export function BookCard({
         <h2 className="font-semibold leading-none">{title}</h2>
         <p className="text-sm text-muted-foreground">{title === "Red Until I’m Dead" ? (
           <><em>love playing football</em> and <strong>A proud and unwavering <span className={styles.liverpool}>Liverpool FC</span> supporter. YNWA.</strong></>
+        ) : title === "Competitive Programming" ? author.split(/(LeetCode|Guardian)/).map((part, index) =>
+          part === "LeetCode" || part === "Guardian" ? (
+            <a key={index} href={part === "LeetCode" ? "https://leetcode.com/u/charuvarthan" : "https://leetcode.com/u/_abyss/"} target="_blank" rel="noopener noreferrer">{part}</a>
+          ) : part
         ) : author}</p>
       </div>
     </li>

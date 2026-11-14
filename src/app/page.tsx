@@ -1,7 +1,6 @@
 "use client";
 
 import { ScrollSection } from "@/components/scroll-section";
-import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
 const EthicsQuote = dynamic(() => import("@/components/ethics-quote").then(mod => mod.EthicsQuote), { ssr: false });
@@ -17,44 +16,10 @@ const BookCard = dynamic(() => import("@/components/book-card").then(mod => mod.
 const TableOfContents = dynamic(() => import("@/components/table-of-contents").then(mod => mod.default), { ssr: false });
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DATA } from "@/data/resume";
-import { useEffect, useState } from "react";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
-  // LeetCode stats state and fetch logic
-  const [leetcode, setLeetcode] = useState({
-    totalSolved: 0,
-    streak: 0,
-    contribution: 0,
-    loading: true,
-    error: false,
-  });
-
-  useEffect(() => {
-    async function fetchLeetcode() {
-      try {
-        const res = await fetch("https://leetcode-stats-api.herokuapp.com/Charuvarthan");
-        if (!res.ok) throw new Error("Failed to fetch");
-        const data = (await res.json()) as {
-          totalSolved?: number;
-          contestAttended?: number;
-          contributionPoints?: number;
-        };
-        setLeetcode({
-          totalSolved: data.totalSolved || 805,
-          streak: data.contestAttended || 0, // fallback if streak not available
-          contribution: data.contributionPoints || 0,
-          loading: false,
-          error: false,
-        });
-      } catch {
-        setLeetcode(l => ({ ...l, loading: false, error: true }));
-      }
-    }
-    fetchLeetcode();
-  }, []);
-
   return (
     <main className="flex flex-col min-h-[100dvh] py-section-md">
       <TableOfContents />
@@ -194,8 +159,6 @@ export default function Page() {
 
 
 
-
-
       <ScrollSection id="achievements" className="mb-section-lg">
         <div className="space-y-content-md">
           <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
@@ -228,56 +191,6 @@ export default function Page() {
         </div>
       </ScrollSection>
 
-      <ScrollSection id="leetcode" className="mb-section-lg">
-        <div className="space-y-content-lg">
-          <BlurFade delay={BLUR_FADE_DELAY * 29}>
-            <div className="flex flex-col items-center justify-center space-y-6 text-center">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
-                LeetCode Stats.
-              </h2>
-              {leetcode.loading ? (
-                <div className="text-2xl text-gray-400 mt-8">Loading...</div>
-              ) : leetcode.error ? (
-                <div className="flex justify-center mt-8">
-                  <Button size="lg" asChild>
-                    <a
-                      href="https://leetcode.com/u/Charuvarthan"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Curious enough to look into my profile?
-                    </a>
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-6">
-                  <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl flex flex-col items-center min-w-[260px]">
-                    <span className="text-5xl font-bold text-gray-300">{leetcode.totalSolved}</span>
-                    <span className="text-lg text-gray-300 mt-2">Problems Solved</span>
-                  </div>
-                  <a
-                    href="https://leetcode.com/u/Charuvarthan"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-gray-900 rounded-2xl p-8 shadow-2xl flex flex-col items-center min-w-[260px] transition hover:bg-gray-800"
-                  >
-                    <span className="text-2xl font-bold text-gray-300">View Profile</span>
-                    <span className="text-lg text-gray-300 mt-2">Curious? Wanna peek</span>
-                  </a>
-                </div>
-              )}
-              <div className="flex justify-center mt-8">
-                <img
-                  src="/leetcode-heatmap.png"
-                  alt="LeetCode Daily Solving Heatmap"
-                  className="max-w-full h-auto rounded-lg border border-gray-700"
-                />
-              </div>
-              <p className="text-xl text-gray-400 mt-8"></p>
-            </div>
-          </BlurFade>
-        </div>
-      </ScrollSection>
 
       <ScrollSection id="world" className="mb-section-lg">
         <div className="space-y-content-lg">
