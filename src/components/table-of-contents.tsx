@@ -13,6 +13,7 @@ const sections = [
   // { id: "work", label: "Work Experience" },
   { id: "education", label: "Education" },
   // { id: "skills", label: "Skills" },
+  { id: "currently-brewing", label: "Currently Brewing" },
   { id: "projects", label: "Projects" },
   { id: "grind-journal", label: "The Pursuit" },
   { id: "contact", label: "Contact" },

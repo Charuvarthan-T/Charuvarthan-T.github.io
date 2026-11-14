@@ -139,18 +139,37 @@ export default function Page() {
         <TechStack delay={BLUR_FADE_DELAY * 21} />
       </section>
 
+      <section id="currently-brewing" className="mb-section-lg">
+        <div className="space-y-content-lg">
+          <BlurFade delay={BLUR_FADE_DELAY * 22}>
+            <h2 className="text-center text-3xl font-bold tracking-tighter sm:text-5xl">Currently Brewing.</h2>
+          </BlurFade>
+          <div className="max-w-[800px] mx-auto divide-y divide-border/40">
+            {[
+              { name: "Inksight", description: "An AI-powered journaling app that turns personal journal entries into meaningful insights and reflections." },
+              { name: "Bon Appétit", description: "A cooking app that helps you make something out of whatever's in your fridge, tailored to your protein intake, calorie goals, and available time." },
+            ].map((project, index) => (
+              <BlurFade key={project.name} delay={BLUR_FADE_DELAY * 23 + index * 0.05}>
+                <div className="grid grid-cols-1 sm:grid-cols-[0.8fr_1.4fr] items-center gap-4 sm:gap-10 py-10 sm:py-12">
+                  <h3 className="font-serif italic text-3xl sm:text-4xl font-normal tracking-tight text-stone-800 dark:text-stone-200">{project.name}</h3>
+                  <p className="text-sm sm:text-base leading-relaxed text-stone-600 dark:text-stone-400">{project.description}</p>
+                </div>
+              </BlurFade>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="projects" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 22}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Check out my latest work.
+                  A Few Things That Made It Out.
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I&apos;ve worked on a variety of projects, from simple
-                  websites to complex web applications. Here are a few of my
-                  favorites.
+                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  See what else made it out on my <a href="https://github.com/Charuvarthan-T" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-foreground transition-colors">GitHub</a>.
                 </p>
               </div>
             </div>

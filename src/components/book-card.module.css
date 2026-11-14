@@ -1,6 +1,6 @@
 .liverpool {
   color: #fff;
-  animation: liverpool-color 5s ease-in-out infinite;
+  animation: liverpool-color 2s ease-in-out infinite;
 }
 
 @keyframes liverpool-color {

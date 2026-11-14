@@ -21,9 +21,9 @@ export function BookCard({
       </div>
       <div className="flex flex-1 flex-col justify-start gap-1">
         <h2 className="font-semibold leading-none">{title}</h2>
-        <p className="text-sm text-muted-foreground">{author.split(/(Liverpool FC)/).map((part, index) =>
-          part === "Liverpool FC" ? <span key={index} className={styles.liverpool}>{part}</span> : part
-        )}</p>
+        <p className="text-sm text-muted-foreground">{title === "Red Until I’m Dead" ? (
+          <><em>love playing football</em> and <strong>A proud and unwavering <span className={styles.liverpool}>Liverpool FC</span> supporter. YNWA.</strong></>
+        ) : author}</p>
       </div>
     </li>
   );

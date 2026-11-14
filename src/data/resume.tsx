@@ -78,7 +78,7 @@ projects: [
     dates: "2025 - Present",
     active: true,
     description:
-      "An AI-powered receipt management system with Google Wallet integration, Firebase backend, and Gemini 2.5 Pro for enriched insights and intelligent financial graphs.",
+      "An AI-powered receipt manager with Google Wallet integration and intelligent financial insights. A hackathon-recognized project.",
     technologies: [
       "Flutter",
       "FastAPI",
@@ -102,7 +102,7 @@ projects: [
     dates: "2025 - Present",
     active: true,
     description:
-      "A Flutter-based legal assistant app designed to simplify legal research, case tracking, and document management with AI-driven suggestions.",
+      "An AI-powered legal assistant for research, case tracking, and document management. A hackathon-recognized project.",
     technologies: [
       "Dart",
       "Flutter",
@@ -125,7 +125,7 @@ projects: [
     dates: "2025",
     active: false,
     description:
-      "A TypeScript-based proctoring and evaluation system for coding assessments, designed for fairness, scalability, and real-time monitoring.",
+      "A real-time coding assessment platform used by numerous students in coding contests, built for secure proctoring and fair evaluation.",
     technologies: [
       "TypeScript",
       "Next.js",
@@ -148,7 +148,7 @@ projects: [
     dates: "2025",
     active: true,
     description:
-      "A high-performance WebSocket load testing tool built in Go, capable of simulating thousands of concurrent connections for benchmarking real-time systems.",
+      "A Go-based WebSocket load testing tool for benchmarking high-concurrency systems.",
     technologies: [
       "Go",
       "WebSockets",
@@ -164,28 +164,7 @@ projects: [
     image: "",
     video: "",
   },
-  {
-    title: "Caching Proxy Server",
-    href: "https://github.com/Charuvarthan-T/Caching-Proxy-server",
-    dates: "2024",
-    active: false,
-    description:
-      "A Python-based caching proxy server designed to optimize response times by storing frequently accessed resources and reducing redundant network calls.",
-    technologies: [
-      "Python",
-      "Networking",
-      "Caching",
-    ],
-    links: [
-      {
-        type: "Source",
-        href: "https://github.com/Charuvarthan-T/Caching-Proxy-server",
-        icon: <Icons.github className="size-3" />,
-      },
-    ],
-    image: "",
-    video: "",
-  },
+
 ],
 
 
@@ -219,7 +198,7 @@ pursuits: [
   },
   {
     title: "Red Until I’m Dead",
-    description: "A proud and unwavering Liverpool FC supporter. YNWA.",
+    description: "love playing football and A proud and unwavering Liverpool FC supporter. YNWA.",
     number: 3,
   },
   {
