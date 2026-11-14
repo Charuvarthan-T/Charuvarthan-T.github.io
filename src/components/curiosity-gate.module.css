@@ -22,9 +22,9 @@
 .shell { max-width: 1280px; min-height: 100dvh; margin: auto; padding: 34px 64px 40px; display: flex; flex-direction: column; }
 .header { display: flex; justify-content: space-between; align-items: center; gap: 24px; }
 .header { position: sticky; top: 0; z-index: 3; background: hsl(var(--background)); }
-.signature { font-size: 18px; font-weight: 400; letter-spacing: -.4px; }
+.signature { font-size: 19.8px; font-weight: 400; letter-spacing: -.4px; }
 .signature span { color: hsl(var(--muted-foreground)); }
-.skip { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: hsl(var(--muted-foreground)); padding: 12px 0 12px 12px; transition: color .2s; }
+.skip { display: inline-flex; align-items: center; gap: 8px; font-size: 13.2px; color: hsl(var(--muted-foreground)); padding: 12px 0 12px 12px; transition: color .2s; }
 .skip:hover { color: hsl(var(--foreground)); }
 .skip svg { transition: transform .2s; }
 .skip:hover svg { transform: translate(2px, -2px); }
@@ -33,21 +33,21 @@
 .introLayout { grid-template-columns: minmax(0, 1fr); gap: 0; }
 .introLayout .copy { margin-left: 64px; margin-right: 32px; }
 .copy { padding-bottom: 18px; }
-.title { font-size: clamp(36px, 4.3vw, 59px); line-height: 1.08; font-weight: 400; letter-spacing: -.045em; text-wrap: balance; max-width: 470px; }
-.introLayout .title { max-width: 1120px; font-size: clamp(56px, 7.1vw, 104px); line-height: 1.04; }
-.introLayout .introSupporting { display: grid; grid-template-columns: 1.4fr .65fr 1fr; gap: 28px; max-width: none; margin-top: 30px; align-items: start; font-size: 26px; }
+.title { font-size: clamp(39.6px, 4.73vw, 64.9px); line-height: 1.08; font-weight: 400; letter-spacing: -.045em; text-wrap: balance; max-width: 470px; }
+.introLayout .title { max-width: 1120px; font-size: clamp(61.6px, 7.81vw, 114.4px); line-height: 1.04; }
+.introLayout .introSupporting { display: grid; grid-template-columns: 1.4fr .65fr 1fr; gap: 28px; max-width: none; margin-top: 30px; align-items: start; font-size: 28.6px; }
 .introLayout .introSupporting p { margin: 0; }
-.body { color: hsl(var(--muted-foreground)); font-size: 14px; line-height: 1.75; max-width: 355px; margin-top: 30px; }
-.introSupporting { font-size: 23px; }
-.finalSupporting { margin-top: 24px; color: hsl(var(--muted-foreground)); font-size: clamp(22px, 1.85vw, 27px); line-height: 1.5; letter-spacing: -.025em; }
+.body { color: hsl(var(--muted-foreground)); font-size: 15.4px; line-height: 1.75; max-width: 355px; margin-top: 30px; }
+.introSupporting { font-size: 25.3px; }
+.finalSupporting { margin-top: 24px; color: hsl(var(--muted-foreground)); font-size: clamp(24.2px, 2.035vw, 29.7px); line-height: 1.5; letter-spacing: -.025em; }
 .finalSupporting p + p { margin-top: 16px; }
 .body p + p { margin-top: 12px; }
 .body .interesting { margin: 12px 0; font-weight: 400; }
 .emphasis { color: hsl(var(--foreground)); }
 .puzzle { width: 100%; max-width: 500px; justify-self: end; }
 .boardHeading { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
-.eyebrow { color: hsl(var(--muted-foreground)); font-size: 10px; font-weight: 500; letter-spacing: .17em; line-height: 1.5; margin-bottom: 8px; }
-.boardHeading h2 { font-weight: 500; font-size: 16px; letter-spacing: -.035em; }
+.eyebrow { color: hsl(var(--muted-foreground)); font-size: 14.3px; font-weight: 700; font-style: italic; letter-spacing: .04em; line-height: 1.5; margin-bottom: 8px; }
+.boardHeading h2 { font-weight: 500; font-size: 17.6px; letter-spacing: -.035em; }
 .boardFrame { padding: 9px; background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 18px 45px -26px hsl(var(--foreground) / .2), 0 2px 6px hsl(var(--foreground) / .025); transition: opacity .4s; }
 .board { position: relative; display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); aspect-ratio: 1; border-radius: 3px; overflow: hidden; isolation: isolate; }
 .square { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 1; padding: 0; border: 0; touch-action: none; }
@@ -60,7 +60,7 @@
 .piece img, .dragPiece img { width: 100%; height: 100%; filter: drop-shadow(0 2px 1px hsl(0 0% 0% / .12)); }
 :global(.dark) .piece[data-color="b"] img { filter: drop-shadow(1px 0 0 hsl(var(--muted-foreground))) drop-shadow(-1px 0 0 hsl(var(--muted-foreground))) drop-shadow(0 1px 0 hsl(var(--muted-foreground))); }
 .selected .piece { transform: translateY(-3px); }
-.rank, .file { position: absolute; font-size: 8px; line-height: 1; color: hsl(var(--muted-foreground)); pointer-events: none; }
+.rank, .file { position: absolute; font-size: 8.8px; line-height: 1; color: hsl(var(--muted-foreground)); pointer-events: none; }
 .rank { top: 4px; left: 4px; }
 .file { bottom: 3px; right: 4px; }
 .destination { width: 14%; height: 14%; border-radius: 100%; background: hsl(var(--foreground) / .25); position: absolute; pointer-events: none; }
@@ -68,33 +68,32 @@
 .dragSource { opacity: .25; }
 .dragPiece { width: 12.5%; height: 12.5%; position: absolute; left: -6.25%; top: -6.25%; pointer-events: none; z-index: 2; }
 .boardFooter { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 18px; min-height: 24px; }
-.feedback { font-size: 12px; line-height: 1.5; color: hsl(var(--foreground)); }
+.feedback { font-size: 13.2px; line-height: 1.5; color: hsl(var(--foreground)); }
 .deselect { padding: 8px; color: hsl(var(--muted-foreground)); }
-.instructions { font-size: 10px; color: hsl(var(--muted-foreground)); line-height: 1.6; margin-top: 6px; }
 .idleBoard { opacity: .45; }
 .signature:focus-visible, .skip:focus-visible, .deselect:focus-visible { outline: 2px solid hsl(var(--ring)); outline-offset: 5px; border-radius: 2px; }
 @media (min-width: 1500px) { .shell { max-width: 1380px; } .composition { gap: 140px; } .puzzle { max-width: 530px; } }
-@media (max-width: 900px) { .shell { padding: 24px 32px 40px; } .composition { gap: 36px; } .title { font-size: 40px; } .body { font-size: 13px; } .introSupporting { font-size: 21px; } .finalSupporting { font-size: 22px; } .introLayout .copy { margin-left: 24px; margin-right: 0; } .introLayout .introSupporting { gap: 24px; font-size: 23px; grid-template-columns: 1.2fr .65fr 1fr; } }
+@media (max-width: 900px) { .shell { padding: 24px 32px 40px; } .composition { gap: 36px; } .title { font-size: 44px; } .body { font-size: 14.3px; } .introSupporting { font-size: 23.1px; } .finalSupporting { font-size: 24.2px; } .introLayout .copy { margin-left: 24px; margin-right: 0; } .introLayout .introSupporting { gap: 24px; font-size: 25.3px; grid-template-columns: 1.2fr .65fr 1fr; } }
 @media (max-width: 680px) {
   .shell { padding: 16px 24px 40px; }
   .header { gap: 12px; }
-  .signature { font-size: 15px; }
-  .skip { font-size: 11px; }
+  .signature { font-size: 16.5px; }
+  .skip { font-size: 12.1px; }
   .composition { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 42px 0 38px; }
   .copy { padding: 0; }
   .introLayout .copy { margin: 0; }
-  .introLayout .title { font-size: clamp(43px, 10vw, 64px); line-height: 1.06; }
-  .introLayout .introSupporting { display: block; font-size: 23px; margin-top: 30px; max-width: 360px; }
+  .introLayout .title { font-size: clamp(47.3px, 11vw, 70.4px); line-height: 1.06; }
+  .introLayout .introSupporting { display: block; font-size: 25.3px; margin-top: 30px; max-width: 360px; }
   .introLayout .introSupporting p + p { margin-top: 12px; }
-  .title { font-size: clamp(36px, 8.8vw, 48px); max-width: 450px; }
-  .body { font-size: 13px; line-height: 1.6; margin-top: 22px; max-width: 360px; }
+  .title { font-size: clamp(39.6px, 9.68vw, 52.8px); max-width: 450px; }
+  .body { font-size: 14.3px; line-height: 1.6; margin-top: 22px; max-width: 360px; }
   .body p + p { margin-top: 14px; }
   .body .interesting { margin: 12px 0; }
   .puzzle { justify-self: center; max-width: 440px; }
   .boardHeading { margin-bottom: 14px; }
-  .boardHeading h2 { font-size: 15px; }
+  .boardHeading h2 { font-size: 16.5px; }
   .boardFrame { padding: 6px; }
-  .rank, .file { font-size: 7px; }
+  .rank, .file { font-size: 7.7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .shell *, .shell *::before, .shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
@@ -103,7 +102,7 @@
 .skip { border: 0; background: transparent; box-shadow: none; font-weight: 400; }
 .skipAction { position: relative; }
 .boardGuide { position: absolute; pointer-events: none; color: #c9ad87; opacity: .65; }
-.challengeNote { position: relative; max-width: 355px; margin-top: 22px; font-size: 14px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+.challengeNote { position: relative; max-width: 355px; margin-top: 22px; font-size: 15.4px; line-height: 1.6; color: hsl(var(--muted-foreground)); }
 .boardGuide { width: 108px; height: 44px; left: calc(100% + 6px); top: -4px; }
 .guideDraw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: guide-draw .9s cubic-bezier(.22, 1, .36, 1) forwards; }
 .guideHead { opacity: 0; animation: guide-head .25s .65s ease-out forwards; }
@@ -132,4 +131,27 @@
 @keyframes skip-ambient { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
   .skipPulse, .skipPulse::after { animation: none; }
+}
+
+/* Increase intro typography without scaling layout or browser zoom. */
+.introSupporting p + p, .introLayout .introSupporting p + p { margin-top: 6px; }
+.body.introSupporting .interesting { margin: 6px 0; }
+.introLayout .introSupporting p:first-child { margin-top: 0; }
+.boardGuide { width: 220px; height: 74px; left: auto; right: -136px; top: 4px; }
+@media (max-width: 1200px) and (min-width: 901px) {
+  .boardGuide { width: 132px; height: 60px; right: -50px; }
+}
+@media (max-width: 900px) and (min-width: 681px) {
+  .boardGuide { width: 90px; height: 50px; right: -16px; }
+}
+@media (max-width: 680px) {
+  .challengeNote { padding-bottom: 56px; }
+  .boardGuide { width: 112px; height: 54px; right: 12px; top: 26px; transform: rotate(55deg); }
+}
+
+.introSupporting { line-height: 1.4; }
+.eyebrow { font-synthesis: weight style; }
+.challengeNote em { font-synthesis: style; }
+@media (min-width: 681px) {
+  .introLayout .introSupporting p, .introLayout .body.introSupporting .interesting { margin: 0; }
 }

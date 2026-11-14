@@ -26,11 +26,11 @@ const squares = Array.from({ length: 64 }, (_, index) => `${FILES[index % 8]}${8
 
 function GuideArrow({ className }: { className: string }) {
   const mask = useId();
-  const curve = "M4 12 Q55 49 116 20";
-  return <svg className={className} viewBox="0 0 122 50" fill="none" aria-hidden="true" focusable="false">
+  const curve = "M4 12 C64 70 150 64 232 20";
+  return <svg className={className} viewBox="0 0 240 80" fill="none" aria-hidden="true" focusable="false">
     <defs><mask id={mask}><path className={styles.guideDraw} pathLength="1" d={curve} stroke="white" strokeWidth="5" /></mask></defs>
     <path d={curve} stroke="currentColor" strokeWidth="1.3" strokeDasharray="3 6" strokeLinecap="round" mask={`url(#${mask})`} />
-    <path className={styles.guideHead} d="M107 17 L117 20 L111 28" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+    <path className={styles.guideHead} d="M222 18 L233 20 L228 31" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
   </svg>;
 }
 
@@ -242,7 +242,7 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
   const compositionTransition = { duration: reduce ? 0 : 0.9, ease: [0.22, 1, 0.36, 1] };
 
   return (
-    <dialog ref={dialog} className={`${styles.dialog} ${absans.className}`} data-cinematic={state === "cinema" ? "true" : undefined} aria-label={state === "cinema" ? "Opening portfolio" : undefined} aria-labelledby={state === "cinema" ? undefined : "curiosity-title"} aria-describedby={challengeVisible && state !== "cinema" ? "curiosity-instructions" : undefined} onCancel={event => { event.preventDefault(); enter(); }} onPointerDownCapture={state === "puzzle" && challengeVisible ? activity : undefined} onKeyDownCapture={state === "puzzle" && challengeVisible ? activity : undefined}>
+    <dialog ref={dialog} className={`${styles.dialog} ${absans.className}`} data-cinematic={state === "cinema" ? "true" : undefined} aria-label={state === "cinema" ? "Opening portfolio" : undefined} aria-labelledby={state === "cinema" ? undefined : "curiosity-title"} onCancel={event => { event.preventDefault(); enter(); }} onPointerDownCapture={state === "puzzle" && challengeVisible ? activity : undefined} onKeyDownCapture={state === "puzzle" && challengeVisible ? activity : undefined}>
       <motion.div className={`${styles.shell} ${state === "cinema" ? styles.cinemaHidden : ""}`} initial={{ opacity: 0 }} animate={{ opacity: leaving ? 0 : 1 }} transition={{ duration: reduce ? 0 : 0.35 }}>
         <header className={styles.header}>
           <a className={styles.signature} href="#hero" onClick={event => { event.preventDefault(); enter(); }} aria-label="Enter Charuvarthan's portfolio">Charuvarthan<span aria-hidden="true">.</span></a>
@@ -282,10 +282,10 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
 
           {challengeVisible && <motion.div data-chess-challenge data-checkmated={game.isCheckmate() ? "true" : "false"} className={styles.puzzle} initial={reduce ? false : { opacity: 0, x: 100 }} animate={{ opacity: 1, x: 0, scale: state === "mating" ? 0.94 : 1 }} transition={{ ...compositionTransition, delay: reduce ? 0 : 0.1 }}>
             <div className={styles.boardHeading}>
-              <div><p className={styles.eyebrow}>THE CURIOSITY GAMBIT</p><h2>{state !== "puzzle" ? "Curiosity wins." : "White to move. Mate in 1."}</h2></div>
+              <div><p className={styles.eyebrow}>the curiosity gambit</p><h2>{state !== "puzzle" ? "Curiosity wins." : "White to move. Mate in 1."}</h2></div>
             </div>
             <div className={`${styles.boardFrame} ${state !== "puzzle" && state !== "mating" ? styles.idleBoard : ""}`}>
-              <div className={styles.board} ref={board} role="group" aria-label={game.isCheckmate() ? "Chessboard. Black is checkmated." : "Chessboard. White to move and checkmate in one move."} aria-describedby="curiosity-instructions">
+              <div className={styles.board} ref={board} role="group" aria-label={game.isCheckmate() ? "Chessboard. Black is checkmated." : "Chessboard. White to move and checkmate in one move."}>
                 {squares.map((square, index) => {
                   const piece = game.get(square);
                   const isSelected = selected === square;
@@ -302,10 +302,9 @@ export default function CuriosityGate({ onEnter }: { onEnter: () => void }) {
               </div>
             </div>
             <div className={styles.boardFooter}>
-              <p className={styles.feedback} role="status" aria-live="polite" aria-atomic="true" key={`${state}-${attempt}`}>{state !== "puzzle" ? "Access unlocked. The choice was always yours." : message}</p>
+              <p className={styles.feedback} role="status" aria-live="polite" aria-atomic="true" key={`${state}-${attempt}`}>{state !== "puzzle" ? "Go on, the choice was always yours" : message}</p>
               {selected && state === "puzzle" && <button className={styles.deselect} onClick={() => { setSelected(null); setMessage("Find the forced mate."); }} aria-label="Clear selected piece"><RotateCcw size={14} aria-hidden="true" /></button>}
             </div>
-            <p id="curiosity-instructions" className={styles.instructions}>Click or drag to move. Keyboard: arrows to explore, Enter to select.</p>
           </motion.div>}
         </div>
 
