@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type ComponentType } from "react";
+import { useCallback, useEffect, useState, type ComponentType } from "react";
 import { usePathname } from "next/navigation";
 
 const SESSION_KEY = "curiosity-gambit:entered:v1";
@@ -23,16 +23,21 @@ export default function CuriosityEntry() {
     return () => { cancelled = true; };
   }, [pathname]);
 
-  function enter() {
+  const enter = useCallback(() => {
     setEntered(true);
     try { sessionStorage.setItem(SESSION_KEY, "1"); } catch { /* Optional persistence. */ }
+  }, []);
+
+  useEffect(() => {
+    if (!entered) return;
     const main = document.querySelector("main");
     if (main) {
+      main.classList.add("portfolio-entry-focus");
       main.setAttribute("tabindex", "-1");
       main.focus({ preventScroll: true });
       main.addEventListener("blur", () => main.removeAttribute("tabindex"), { once: true });
     }
-  }
+  }, [entered]);
 
   return Gate && !entered && pathname === "/" ? <Gate onEnter={enter} /> : null;
 }

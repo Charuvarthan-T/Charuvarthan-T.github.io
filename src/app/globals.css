@@ -80,7 +80,7 @@
     @apply bg-background text-foreground;
   }
   /* Entry hands focus to this container; controls retain their focus rings. */
-  main[tabindex="-1"]:focus {
+  main.portfolio-entry-focus:focus, main.portfolio-entry-focus:focus-visible {
     outline: 0;
   }
 }
