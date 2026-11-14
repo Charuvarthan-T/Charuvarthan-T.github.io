@@ -227,7 +227,6 @@ export default function Page() {
           </BlurFade>
         </div>
       </ScrollSection>
-      <ContactOrbiting delay={BLUR_FADE_DELAY * 33} />
 
       <ScrollSection id="leetcode" className="mb-section-lg">
         <div className="space-y-content-lg">
@@ -297,6 +296,7 @@ export default function Page() {
           <WorldMap delay={BLUR_FADE_DELAY * 32} />
         </div>
       </ScrollSection>
+      <ContactOrbiting />
     </main>
   );
 }

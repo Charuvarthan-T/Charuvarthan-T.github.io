@@ -14,9 +14,9 @@ const sections = [
   { id: "projects", label: "Projects" },
   { id: "achievements", label: "Rare Moments" },
   { id: "grind-journal", label: "The Pursuit" },
-  { id: "contact", label: "Contact" },
   { id: "leetcode", label: "LeetCode" },
   { id: "world", label: "World Map" },
+  { id: "contact", label: "Contact" },
 ];
 
 export default function TableOfContents() {

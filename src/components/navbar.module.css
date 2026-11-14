@@ -1,0 +1,24 @@
+.pill {
+  isolation: isolate;
+  backdrop-filter: blur(16px);
+}
+.pill::before {
+  content: "";
+  position: absolute;
+  inset: -7px;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 24px 12px at 10% 18%, rgb(210 219 230 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 90% 18%, rgb(210 219 230 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 10% 82%, rgb(210 219 230 / .4), transparent),
+    radial-gradient(ellipse 24px 12px at 90% 82%, rgb(210 219 230 / .4), transparent);
+  filter: blur(7px);
+  opacity: 0;
+  transition: opacity .6s cubic-bezier(.22, 1, .36, 1);
+}
+.docked::before { opacity: .75; }
+@media (prefers-reduced-motion: reduce) {
+  .pill::before { transition: none; }
+}
