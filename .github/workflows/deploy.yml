@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 
@@ -52,6 +53,27 @@ jobs:
       with:
         path: ./out
         
+    # Upload completion and artifact API visibility can briefly disagree.
+    # Deploy only after Pages can discover the artifact for this exact run.
+    - name: Wait for Pages artifact availability
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        for attempt in {1..12}; do
+          if available=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=github-pages" \
+            --jq '.artifacts | any(.name == "github-pages" and .expired == false)'); then
+            if [[ "$available" == "true" ]]; then
+              echo "Pages artifact is available for deployment."
+              exit 0
+            fi
+          fi
+          echo "Waiting for artifact metadata (attempt $attempt/12)."
+          if [[ "$attempt" -lt 12 ]]; then sleep 5; fi
+        done
+        echo "::error::The uploaded github-pages artifact is still unavailable through the Actions API."
+        exit 1
+
     - name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4 
