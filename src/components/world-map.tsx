@@ -58,8 +58,18 @@ export const WorldMap = ({ delay }: { delay?: number }) => {
     controls.enableDamping = !reduced.matches;
     controls.dampingFactor = .07;
     controls.rotateSpeed = .55;
-    controls.autoRotateSpeed = .12;
-    const changeMotion = () => { controls.enableDamping = !reduced.matches; };
+    controls.autoRotate = false;
+    let dragging = false, visible = false, frame = 0, disposed = false, needsRender = true;
+    let pendingHover: { clientX: number; clientY: number } | null = null;
+    function scheduleFrame() {
+      if (!disposed && visible && !document.hidden && !frame) frame = requestAnimationFrame(render);
+    }
+    function requestRender() {
+      needsRender = true;
+      scheduleFrame();
+    }
+    controls.addEventListener("change", requestRender);
+    const changeMotion = () => { controls.enableDamping = !reduced.matches; requestRender(); };
     reduced.addEventListener("change", changeMotion);
     scene.add(new THREE.AmbientLight(0xd3e1ef, 2));
     const sun = new THREE.DirectionalLight(0xfff1dd, 2.5);
@@ -73,62 +83,86 @@ export const WorldMap = ({ delay }: { delay?: number }) => {
     picking.width = width; picking.height = height;
     const pickContext = picking.getContext("2d", { willReadFrequently: true })!;
     const projection = geoEquirectangular().scale(width / (2 * Math.PI)).translate([width / 2, height / 2]);
-    const path = geoPath(projection, context), pickPath = geoPath(projection, pickContext);
-    features.forEach((feature, index) => {
-      pickContext.beginPath(); pickPath(feature);
+    // Project country outlines once; reuse the same geometry for painting and picking.
+    const path = geoPath(projection);
+    const outlines = features.map(feature => new Path2D(path(feature) || ""));
+    outlines.forEach((outline, index) => {
       const id = index + 1;
       pickContext.fillStyle = `rgb(${id & 255},${id >> 8},0)`;
-      pickContext.fill();
+      pickContext.fill(outline);
     });
+    const pickPixels = pickContext.getImageData(0, 0, width, height).data;
+    picking.width = picking.height = 1;
+    const base = document.createElement("canvas");
+    base.width = width; base.height = height;
+    const baseContext = base.getContext("2d")!;
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
     texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
     let selected = -1;
     const image = new Image();
     const draw = () => {
-      context.fillStyle = "#102b42"; context.fillRect(0, 0, width, height);
-      if (image.complete && image.naturalWidth) context.drawImage(image, 0, 0, width, height);
-      features.forEach((feature, index) => {
-        context.beginPath(); path(feature);
-        const code = String(feature.id);
-        context.fillStyle = index === selected ? "rgba(157,193,219,.44)" : visitedCountries.includes(code) ? "rgba(25,155,122,.48)" : targetWorkCountries.includes(code) ? "rgba(201,164,92,.40)" : "rgba(173,188,186,.04)";
-        context.fill();
+      context.clearRect(0, 0, width, height);
+      context.drawImage(base, 0, 0);
+      if (selected >= 0) {
+        context.fillStyle = "rgba(157,193,219,.44)";
+        context.fill(outlines[selected]);
         context.strokeStyle = "rgba(214,226,225,.38)";
-        context.lineWidth = .65; context.stroke();
-      });
+        context.lineWidth = .65; context.stroke(outlines[selected]);
+      }
       texture.needsUpdate = true;
+      requestRender();
     };
-    image.onload = draw; image.src = "/globe/earth.jpg";
-    draw();
+    const drawBase = () => {
+      baseContext.fillStyle = "#102b42"; baseContext.fillRect(0, 0, width, height);
+      if (image.complete && image.naturalWidth) baseContext.drawImage(image, 0, 0, width, height);
+      features.forEach((feature, index) => {
+        const code = String(feature.id);
+        baseContext.fillStyle = visitedCountries.includes(code) ? "rgba(25,155,122,.48)" : targetWorkCountries.includes(code) ? "rgba(201,164,92,.40)" : "rgba(173,188,186,.04)";
+        baseContext.fill(outlines[index]);
+        baseContext.strokeStyle = "rgba(214,226,225,.38)";
+        baseContext.lineWidth = .65; baseContext.stroke(outlines[index]);
+      });
+      draw();
+    };
+    image.onload = drawBase; image.src = "/globe/earth.jpg";
+    drawBase();
     const geometry = new THREE.SphereGeometry(1, 96, 64);
     const material = new THREE.MeshPhongMaterial({ map: texture, shininess: 9, specular: 0x1c3745 });
     const earth = new THREE.Mesh(geometry, material);
     scene.add(earth);
     const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
-    let dragging = false, resumeAt = 0, visible = false, frame = 0, disposed = false;
     const select = (index: number) => {
       if (selected === index) return;
       selected = index;
       setCountry(index < 0 ? null : String(features[index].properties?.name));
       draw();
     };
-    const hover = (event: PointerEvent) => {
+    const hover = (event: { clientX: number; clientY: number }) => {
       if (dragging) return;
       const bounds = renderer.domElement.getBoundingClientRect();
       pointer.set((event.clientX - bounds.left) / bounds.width * 2 - 1, -(event.clientY - bounds.top) / bounds.height * 2 + 1);
+      camera.updateMatrixWorld();
       raycaster.setFromCamera(pointer, camera);
       const uv = raycaster.intersectObject(earth)[0]?.uv;
       if (!uv) { select(-1); return; }
-      const pixel = pickContext.getImageData(Math.min(width - 1, Math.floor(uv.x * width)), Math.min(height - 1, Math.floor((1 - uv.y) * height)), 1, 1).data;
-      const id = pixel[0] + (pixel[1] << 8) - 1;
+      const x = Math.max(0, Math.min(width - 1, Math.floor(uv.x * width)));
+      const y = Math.max(0, Math.min(height - 1, Math.floor((1 - uv.y) * height)));
+      const offset = (y * width + x) * 4;
+      const id = pickPixels[offset] + (pickPixels[offset + 1] << 8) - 1;
       select(id >= 0 && id < features.length ? id : -1);
     };
-    const start = () => { dragging = true; select(-1); };
-    const end = (event: PointerEvent) => { dragging = false; resumeAt = performance.now() + 5000; hover(event); };
-    const leave = () => { dragging = false; select(-1); resumeAt = performance.now() + 2500; };
+    const queueHover = (event: PointerEvent) => {
+      if (dragging) return;
+      pendingHover = { clientX: event.clientX, clientY: event.clientY };
+      scheduleFrame();
+    };
+    const start = () => { dragging = true; pendingHover = null; select(-1); };
+    const end = (event: PointerEvent) => { dragging = false; queueHover(event); };
+    const leave = () => { dragging = false; pendingHover = null; select(-1); };
     const keyboard = (event: KeyboardEvent) => {
       if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) return;
-      event.preventDefault(); select(-1); resumeAt = performance.now() + 5000;
+      event.preventDefault(); pendingHover = null; select(-1);
       const spherical = new THREE.Spherical().setFromVector3(camera.position);
       if (event.key === "ArrowLeft") spherical.theta -= .12;
       if (event.key === "ArrowRight") spherical.theta += .12;
@@ -137,7 +171,7 @@ export const WorldMap = ({ delay }: { delay?: number }) => {
       spherical.makeSafe(); camera.position.setFromSpherical(spherical); controls.update();
     };
     const surface = renderer.domElement;
-    surface.addEventListener("pointermove", hover);
+    surface.addEventListener("pointermove", queueHover);
     surface.addEventListener("pointerdown", start);
     surface.addEventListener("pointerup", end);
     surface.addEventListener("pointerleave", leave);
@@ -148,25 +182,45 @@ export const WorldMap = ({ delay }: { delay?: number }) => {
       renderer.setSize(w, h, false); camera.aspect = w / h;
       // Fit the full sphere with breathing room even in narrow containers.
       camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(42) / 2) / Math.min(1, camera.aspect)));
-      camera.updateProjectionMatrix();
+      camera.updateProjectionMatrix(); requestRender();
     });
     resize.observe(element);
-    const render = () => {
-      if (disposed) return;
-      frame = requestAnimationFrame(render);
-      if (!visible || document.hidden) return;
-      controls.autoRotate = !reduced.matches && !dragging && selected < 0 && performance.now() > resumeAt;
-      controls.update(); renderer.render(scene, camera);
+    function render() {
+      frame = 0;
+      if (disposed || !visible || document.hidden) return;
+      // OrbitControls emits change only while the camera is moving. Its final
+      // damping frames request themselves; an idle globe schedules no work.
+      controls.update();
+      if (pendingHover) {
+        const event = pendingHover;
+        pendingHover = null;
+        hover(event);
+      }
+      if (needsRender) {
+        renderer.render(scene, camera);
+        needsRender = false;
+      }
+    }
+    const suspend = () => {
+      cancelAnimationFrame(frame); frame = 0;
     };
-    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; });
-    observer.observe(element); render();
+    const visibility = () => { if (document.hidden) suspend(); else requestRender(); };
+    document.addEventListener("visibilitychange", visibility);
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) requestRender(); else suspend();
+    });
+    observer.observe(element);
     return () => {
       disposed = true; cancelAnimationFrame(frame); observer.disconnect(); resize.disconnect();
-      reduced.removeEventListener("change", changeMotion); image.onload = null;
-      surface.removeEventListener("pointermove", hover); surface.removeEventListener("pointerdown", start);
+      document.removeEventListener("visibilitychange", visibility);
+      controls.removeEventListener("change", requestRender);
+      reduced.removeEventListener("change", changeMotion); image.onload = null; image.src = "";
+      surface.removeEventListener("pointermove", queueHover); surface.removeEventListener("pointerdown", start);
       surface.removeEventListener("pointerup", end); surface.removeEventListener("pointerleave", leave);
       surface.removeEventListener("pointercancel", leave); surface.removeEventListener("keydown", keyboard);
       controls.dispose(); geometry.dispose(); material.dispose(); texture.dispose(); renderer.dispose(); surface.remove();
+      canvas.width = canvas.height = base.width = base.height = 1;
     };
   }, []);
   return <BlurFade delay={delay}>
