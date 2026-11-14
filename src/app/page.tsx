@@ -192,6 +192,43 @@ export default function Page() {
         </div>
       </ScrollSection>
 
+
+
+
+
+      <ScrollSection id="achievements" className="mb-section-lg">
+        <div className="space-y-content-md">
+          <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
+        </div>
+      </ScrollSection>
+
+      <ScrollSection id="grind-journal" className="mb-section-lg">
+        <div className="space-y-content-lg">
+          <BlurFade delay={BLUR_FADE_DELAY * 25}>
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                  The Pursuit.
+                </h2>
+                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  The things I genuinely love getting lost in.
+                </p>
+              </div>
+            </div>
+          </BlurFade>
+          <BlurFade delay={BLUR_FADE_DELAY * 26}>
+            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
+              {DATA.pursuits.map((entry, index) => (
+                <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
+                  <BookCard title={entry.title} author={entry.description} number={entry.number} />
+                </BlurFade>
+              ))}
+            </ul>
+          </BlurFade>
+        </div>
+      </ScrollSection>
+      <ContactOrbiting delay={BLUR_FADE_DELAY * 33} />
+
       <ScrollSection id="leetcode" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 29}>
@@ -258,40 +295,6 @@ export default function Page() {
           </div>
         </BlurFade>
           <WorldMap delay={BLUR_FADE_DELAY * 32} />
-        </div>
-      </ScrollSection>
-
-      <ContactOrbiting delay={BLUR_FADE_DELAY * 33} />
-
-      <ScrollSection id="achievements" className="mb-section-lg">
-        <div className="space-y-content-md">
-          <EthicsQuote delay={BLUR_FADE_DELAY * 15.5} />
-        </div>
-      </ScrollSection>
-
-      <ScrollSection id="grind-journal" className="mb-section-lg">
-        <div className="space-y-content-lg">
-          <BlurFade delay={BLUR_FADE_DELAY * 25}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  The Pursuit.
-                </h2>
-                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  The things I genuinely love getting lost in.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 26}>
-            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-              {DATA.pursuits.map((entry, index) => (
-                <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
-                  <BookCard title={entry.title} author={entry.description} number={entry.number} />
-                </BlurFade>
-              ))}
-            </ul>
-          </BlurFade>
         </div>
       </ScrollSection>
     </main>

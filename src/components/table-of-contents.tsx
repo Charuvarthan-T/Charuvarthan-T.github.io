@@ -12,11 +12,11 @@ const sections = [
   { id: "tech-stack", label: "Tech Stacks" },
   { id: "currently-brewing", label: "Currently Brewing" },
   { id: "projects", label: "Projects" },
-  { id: "leetcode", label: "LeetCode" },
-  { id: "world", label: "World Map" },
-  { id: "contact", label: "Contact" },
   { id: "achievements", label: "Rare Moments" },
   { id: "grind-journal", label: "The Pursuit" },
+  { id: "contact", label: "Contact" },
+  { id: "leetcode", label: "LeetCode" },
+  { id: "world", label: "World Map" },
 ];
 
 export default function TableOfContents() {
