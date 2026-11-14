@@ -1,3 +1,4 @@
+import styles from "./book-card.module.css";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface Props {
@@ -15,12 +16,14 @@ export function BookCard({
     <li className="relative ml-10 py-4">
       <div className="absolute -left-16 top-2 flex items-center justify-center bg-white rounded-full">
         <Avatar className="border size-12 m-auto">
-          <AvatarFallback className="text-xs font-bold">{number}</AvatarFallback>
+          <AvatarFallback className="text-xs font-bold">{String(number).padStart(2, "0")}</AvatarFallback>
         </Avatar>
       </div>
       <div className="flex flex-1 flex-col justify-start gap-1">
         <h2 className="font-semibold leading-none">{title}</h2>
-        <p className="text-sm text-muted-foreground">{author}</p>
+        <p className="text-sm text-muted-foreground">{author.split(/(Liverpool FC)/).map((part, index) =>
+          part === "Liverpool FC" ? <span key={index} className={styles.liverpool}>{part}</span> : part
+        )}</p>
       </div>
     </li>
   );

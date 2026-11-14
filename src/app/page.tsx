@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 
-const GitHubContributions = dynamic(() => import("@/components/github-contributions").then(mod => mod.GitHubContributions), { ssr: false });
 const EthicsQuote = dynamic(() => import("@/components/ethics-quote").then(mod => mod.EthicsQuote), { ssr: false });
 const TechStack = dynamic(() => import("@/components/tech-stack").then(mod => mod.TechStack), { ssr: false });
 const TimelineItem = dynamic(() => import("@/components/resume-card").then(mod => mod.TimelineItem), { ssr: false });
@@ -179,62 +178,28 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="github" className="mb-section-lg">
-        <div className="space-y-content-lg">
-          <BlurFade delay={BLUR_FADE_DELAY * 24}>
-            <div className="flex flex-col items-center justify-center space-y-6 text-center">
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white">
-                My GitHub Activity.
-              </h2>
-              <p className="text-lg text-gray-300 mt-2 max-w-2xl mx-auto">
-                Here&apos;s my contribution graph showing my coding activity over the past year.
-              </p>
-              <GitHubContributions username="Charuvarthan-T" delay={BLUR_FADE_DELAY * 24.5} />
-            </div>
-          </BlurFade>
-        </div>
-      </section>
-
       <section id="grind-journal" className="mb-section-lg">
         <div className="space-y-content-lg">
           <BlurFade delay={BLUR_FADE_DELAY * 25}>
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                  Grind Journal.
+                  The Pursuit.
                 </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  My journey through code, research, and relentless learning.
+                <p className="italic text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  The things I genuinely love getting lost in.
                 </p>
               </div>
             </div>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 26}>
-            <div className="space-y-content-lg">
-              {DATA.books.map((themeGroup, themeId) => (
-                <div key={themeGroup.theme} className="space-y-content-sm">
-                  <BlurFade delay={BLUR_FADE_DELAY * 27 + themeId * 0.1}>
-                    <h3 className="text-lg font-semibold text-muted-foreground">
-                      {themeGroup.theme}
-                    </h3>
-                  </BlurFade>
-                  <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
-                    {themeGroup.books.map((book, bookId) => (
-                      <BlurFade
-                        key={book.title + book.author}
-                        delay={BLUR_FADE_DELAY * 28 + themeId * 0.1 + bookId * 0.05}
-                      >
-                        <BookCard
-                          title={book.title}
-                          author={book.author}
-                          number={book.number}
-                        />
-                      </BlurFade>
-                    ))}
-                  </ul>
-                </div>
+            <ul className="mb-4 ml-4 divide-y divide-dashed border-l">
+              {DATA.pursuits.map((entry, index) => (
+                <BlurFade key={entry.title} delay={BLUR_FADE_DELAY * 28 + index * 0.05}>
+                  <BookCard title={entry.title} author={entry.description} number={entry.number} />
+                </BlurFade>
               ))}
-            </div>
+            </ul>
           </BlurFade>
         </div>
       </section>

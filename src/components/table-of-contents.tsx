@@ -14,8 +14,7 @@ const sections = [
   { id: "education", label: "Education" },
   // { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
-  { id: "grind-journal", label: "Grind Journal" },
-  { id: "github", label: "GitHub" },
+  { id: "grind-journal", label: "The Pursuit" },
   { id: "contact", label: "Contact" },
 ];
 

@@ -206,91 +206,26 @@ publications: [
   },
 ],
 
-books: [
+pursuits: [
   {
-    theme: "LeetCode Battles",
-    books: [
-      {
-        title: "800+ Problems Solved",
-        author: "Problem solving: dynamic programming, graphs, and advanced algorithms.",
-        number: 1,
-      },
-      {
-        title: "Hard Problem Kills",
-        author: "Cracked complex graph/DP challenges and optimized brute-force solutions into O(n log n) power moves.",
-        number: 2,
-      },
-    ],
+    title: "Competitive Programming",
+    description: "The intersection of programming and math. A 2,208 LeetCode Guardian and 6-star Div. 1 CodeChef coder.",
+    number: 1,
   },
   {
-    theme: "Research Sparks",
-    books: [
-      {
-        title: "IEEE Paper: LSTM-Driven SOC Estimation",
-        author: "Published at PIICON 2024: leveraging LSTM networks for accurate state-of-charge prediction in EV batteries.",
-        number: 3,
-      },
-      {
-        title: "Knowledge Graph Systems",
-        author: "Engineering ontology-driven AI assistants to parse and connect scientific knowledge at scale.",
-        number: 4,
-      },
-    ],
+    title: "Software Engineering",
+    description: "Love building solutions that solve genuine problems, keeping code simple, and letting good engineering principles do the talking.",
+    number: 2,
   },
   {
-    theme: "FAANG Fundamentals",
-    books: [
-      {
-        title: "System Design",
-        author: "Studying distributed systems, scalability, caching, and high availability for FAANG-level interviews.",
-        number: 5,
-      },
-      {
-        title: "Operating Systems",
-        author: "Digging deep into processes, scheduling, memory management, and synchronization.",
-        number: 6,
-      },
-      {
-        title: "Computer Networks",
-        author: "Mastering TCP/IP, routing, DNS, HTTP/2, and WebSockets: the backbone of real-time systems.",
-        number: 7,
-      },
-      {
-        title: "Databases & Beyond",
-        author: "From SQL and indexing to NoSQL, Firestore internals, and Kafka for streaming data pipelines.",
-        number: 8,
-      },
-    ],
+    title: "Red Until I’m Dead",
+    description: "A proud and unwavering Liverpool FC supporter. YNWA.",
+    number: 3,
   },
   {
-    theme: "Hackathon Heat",
-    books: [
-      {
-        title: "GenderX AI Hackathon",
-        author: "🏆 Winner: built AI-driven solutions for gender inclusivity with impact-focused design.",
-        number: 9,
-      },
-      {
-        title: "Google Cloud Agentic AI Day",
-        author: "⚡ Breakthrough Concept Award: recognized for next-gen agentic AI design.",
-        number: 10,
-      },
-    ],
-  },
-  {
-    theme: "Vision Sparks",
-    books: [
-      {
-        title: "Graph-Driven Future",
-        author: "Passionate about using knowledge graphs + AI to map complex systems for developers and scientists.",
-        number: 11,
-      },
-      {
-        title: "Personal Philosophy",
-        author: "Grind like an engineer, think like a researcher, ship like a founder.",
-        number: 12,
-      },
-    ],
+    title: "Timeless Melodies",
+    description: "I find myself drawn to Vivaldi, Beethoven, and other old melodies that never seem to lose their charm.",
+    number: 4,
   },
 ],
 

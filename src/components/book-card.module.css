@@ -1,0 +1,13 @@
+.liverpool {
+  color: #fff;
+  animation: liverpool-color 5s ease-in-out infinite;
+}
+
+@keyframes liverpool-color {
+  0%, 100% { color: #fff; }
+  50% { color: #C8102E; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liverpool { animation: none; }
+}
