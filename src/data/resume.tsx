@@ -16,7 +16,7 @@ export const DATA = {
 
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
-    { href: "/resume.pdf", icon: DownloadIcon, label: "Resume" },
+    { href: "/resume.pdf?v=4a53811654d7", icon: DownloadIcon, label: "Resume" },
   ],
   contact: {
     email: "charuvarthan@email.com",
