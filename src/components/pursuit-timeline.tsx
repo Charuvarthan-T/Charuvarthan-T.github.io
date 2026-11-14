@@ -10,11 +10,10 @@ export function PursuitTimeline({ children }: { children: ReactNode }) {
     const section = ref.current?.closest("section");
     if (!section) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) {
-        setStarted(true);
-        observer.disconnect();
-      }
-    }, { threshold: 0.12 });
+      if (entry.intersectionRatio >= 0.12) setStarted(true);
+      // Reset only after leaving completely, not while moving within the section.
+      else if (!entry.isIntersecting) setStarted(false);
+    }, { threshold: [0, 0.12] });
     observer.observe(section);
     return () => observer.disconnect();
   }, []);

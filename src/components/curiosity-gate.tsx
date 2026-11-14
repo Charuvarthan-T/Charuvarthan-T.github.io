@@ -10,7 +10,7 @@ import { PUZZLE_FEN, tryPuzzleMove, completePuzzleMate } from "@/lib/curiosity-p
 import styles from "./curiosity-gate.module.css";
 import KingDeparture, { type KingOrigin } from "./king-departure";
 
-const IDLE_MS = 5_000;
+const IDLE_MS = 7_000;
 // Four staggered reveals, followed by a reading beat before the board enters.
 const INTRO_DURATION_MS = 4_800;
 const absans = localFont({
